@@ -1,0 +1,13 @@
+# 1. Introduction
+
+```{r comment1, echo=FALSE}
+# Un paragraphe de texte (environ 1000 caractères) sur votre projet, ainsi qu'au moins une photo libre de droits, pour publication sur le site de # la FRB, à destination d’un public large. La FRB se réserve le droit de modifier ce texte avant publication sur son site.
+```
+
+Madagascar est une île de l'océan indien qui s'est détachée de l'Afrique puis de l'Inde il y a plusieurs dizaines de millions d'années. La biodiversité y a évolué de façon isolée. Ainsi, près de 90% des espèces n'existent que sur l'île. Cette biodiversité est fortement menacée par les changements climatiques et la déforestation. Le projet BioSceneMada, en s'appuyant sur des modèles climatiques, écologiques et paysagers, se propose d'établir des scénarios d'évolution de la biodiversité à Madagascar sous l'effet conjoint du changement climatique et de la déforestation. Les cartes issues du projet permettent d'identifier les zones à risque de perte de biodiversité et de déforestation ainsi que les zones refuges pour la biodiversité. Ces cartes peuvent être utilisées afin d'agir efficacement pour la conservation des forêts et de la biodiversité à Madagascar, notamment en priorisant les actions de conservation sur des zones cibles, tout en s'appuyant sur le réseau d'aires protégées actuel.
+
+(ref:cap-baobab) **Population de baobabs de l'espèce _Adansonia suarezensis_ sur le site de la Montagne des Français au nord de Madagascar.** Cette espèce est fortement menacée par la perte d'habitat associée aux changements climatiques.
+
+```{r baobab, out.width="\\textwidth", fig.cap="(ref:cap-baobab)"}
+knitr::include_graphics("figures/Adansonia_suarezensis.jpg")
+```

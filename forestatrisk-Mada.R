@@ -342,7 +342,7 @@ mod <- c("glm","rf","rfxy")
 model <- list(mod_glm, mod_rf, mod_rfxy)
 for (i in 1:1) { # length(mod)) {
 	cat(glue("Probability in 2010: {mod[i]}"),"\n")
-	if (!file.exists("output/prob_{mod[i]}.tif")) {
+	if (!file.exists(glue("output/prob_{mod[i]}.tif"))) {
 		fig_prob <- far$predict_raster(model[[i]], var_dir="data/model",
 									   input_forest_raster="data/model/fordefor2010.tif",
 									   output_file=glue("output/prob_{mod[i]}.tif"),
@@ -391,7 +391,7 @@ for (i in 1:length(mod)) {
 	cat(glue("Differences in 2017: {mod[i]}_obs"),"\n")
 	if (!file.exists(glue("output/diff2017_{mod[i]}_obs.tif"))) {
 		far$r_diffproj(inputA=glue("output/proj2017_{mod[i]}.tif"),
-					   inputB=glue("output/proj2017_obs.tif"),
+					   inputB=glue("data/validation/proj2017_obs.tif"),
 					   output_file=glue("output/diff2017_{mod[i]}_obs.tif"),
 					   blk_rows=64L)
 	}
@@ -407,8 +407,8 @@ acc_mod_30m <- index_diff2017_30m %>%
 write_csv(acc_mod_30m, "output/models_accuracy_30m.csv")
 
 ## ----resample_sum--------------------------------------------------------
-dir.create("output/accuracy")
 dirout <- "output/accuracy"
+if (!dir.exists(dirout)) {dir.create(dirout)}
 resolutions <- c(2, 5, 10, 25, 50, 100, 250, 500, 1000)
 models <- c("obs","icar","glm")
 # Resample
@@ -455,7 +455,7 @@ lapply(confmat_glm, sum)
 save(confmat_icar, confmat_glm, file="output/confmat.rda")
 
 ## ----accuracy------------------------------------------------------------
-
+load("output/confmat.rda")
 # Compute indices
 acc_mod <- NULL
 for (i in 1:length(resolutions)) {
@@ -480,17 +480,11 @@ acc_mod_30m <- read_csv("output/models_accuracy_30m.csv")
 # Plot with ggplot2
 acc_mod <- read_csv("output/models_accuracy.csv") %>%
 	dplyr::bind_rows(acc_mod_30m) %>%
-	dplyr::filter(index %in% c("FOM", "OA"))
-p <- ggplot(acc_mod, aes(x=res, y=value, color=mod)) +
-	geom_line() + xlim(0,500) + facet_wrap(.~index, ncol=4, scales="free")
+	dplyr::filter(index %in% c("FOM", "OA")) %>%
+	dplyr::mutate(res_km=30*res/1000)
+p <- ggplot(acc_mod, aes(x=res_km, y=value, color=mod)) +
+	geom_line() + xlim(0,15) + facet_wrap(.~index, ncol=4, scales="free")
 ggsave("output/models_accuracy.png", p)
-
-# Todo:
-# - facet plot with indices
-# - compute mean indices with weighted mean per res
-# - indices for res=1
-# - transform res in m
-# - clean accuracy and validation
 
 # ========================================================
 # Projections in 2050
@@ -514,8 +508,8 @@ index_diff2050_30m <- NULL
 for (i in 1:1) { #length(comp)) {
   cat(glue("Differences in 2050: {comp[i]}"),"\n")
   if (!file.exists(glue("output/diff2050_{comp[i]}.tif"))) {
-    m1 <- unlist(strsplit("icar_glm","_"))[1]
-    m2 <- unlist(strsplit("icar_glm","_"))[2]
+    m1 <- unlist(strsplit(comp[i],"_"))[1]
+    m2 <- unlist(strsplit(comp[i],"_"))[2]
     far$r_diffproj(inputA=glue("output/proj2050_{m1}.tif"),
                    inputB=glue("output/proj2050_{m2}.tif"),
                    output_file=glue("output/diff2050_{comp[i]}.tif"),
@@ -525,36 +519,12 @@ for (i in 1:1) { #length(comp)) {
   index_diff2050_30m <- rbind(index_diff2050_30m, accuracy_indices(mat))
 }
 diff2050_comp_30m <- index_diff2050_30m %>%
-  dplyr::mutate(res=rep(30,4),comp=comp) %>%
-  dplyr::select(8,9,1:7)
-
-## ----resampling_diff2050-------------------------------------------------
-resname <- c("250m", "500m", "1km", "5km", "10km")
-res <- c(250, 500, 1000, 5000, 10000)
-index_comp <- NULL
-for (i in 1:length(res)) {
-  for (j in 1:length(comp)) {
-    if (!file.exists(glue("output/diff2050_{comp[j]}_{resname[i]}.tif"))) {
-      system(glue("gdalwarp -overwrite -tr {res[i]} {res[i]} \\
-         -ot Byte -r mode -co 'COMPRESS=LZW' -co 'PREDICTOR=2' -co 'BIGTIFF=YES' \\
-         output/diff2050_{comp[j]}.tif output/diff2050_{comp[j]}_{resname[i]}.tif"))
-    }
-    mat_comp <- far$mat_diffproj(glue("output/diff2050_{comp[j]}_{resname[i]}.tif"))
-    index_comp <- rbind(index_comp, accuracy_indices(mat_comp))
-  }
-}
-diff2050_comp <- index_comp %>%
-  dplyr::mutate(res=rep(res,each=4),comp=rep(comp,5)) %>%
-  dplyr::select(8,9,1:7)
-
-## ----diff_comp-----------------------------------------------------------
-diff2050_comp <- rbind(diff2050_comp_30m, diff2050_comp)
-readr::write_csv(diff2050_comp,path="output/diff2050_comp.txt")
-diff2050_comp
+	dplyr::mutate(res=30,comp=comp[1]) %>%
+	dplyr::select(comp, res, OA, EA, FOM, Spe, Sen, TSS, K)
 
 ## ----diff2050_plot-------------------------------------------------------
-for (i in 1:length(comp)) {
-  if (!file.exists(glue("output/diff2050_{comp[i]}.tif"))) {
+for (i in 1:1) { # length(comp)) {
+  if (!file.exists(glue("output/diff2050_{comp[i]}.png"))) {
     cat(glue("Plot difference: {comp[i]}"),"\n")
     far$plot$differences(glue("output/diff2050_{comp[i]}.tif"),
                          borders="data/mada/mada38s.shp",
