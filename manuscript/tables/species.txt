@@ -1,0 +1,17 @@
+"";"Groupe";"Espèces";"Genres";"Obs."
+"Plantes";"Arbres";531;283;40178
+"";"Palmiers";178;16;5105
+"";"Fougères";317;82;1664
+"";"Légumineuses";724;149;30305
+"";"Graminées";283;113;3469
+"";"Autres";1229;359;34265
+"Vertébrés";"Mammifères";189;69;28316
+"";"Lémuriens";64;15;3136
+"";"Oiseaux";285;172;60895
+"";"Reptiles";153;41;4938
+"";"Amphibiens";78;21;208
+"Invertébrés";"Escargots";537;113;1635
+"";"Fourmis";379;46;70012
+"";"Papillons";262;82;16396
+"";"Autres";355;203;6202
+"TOTAL=";"TOTAL=";"4969";1749;"303588"

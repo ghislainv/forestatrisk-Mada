@@ -1,4 +1,4 @@
-# 1. Introduction
+# Introduction
 
 ```{r comment1, echo=FALSE}
 # Un paragraphe de texte (environ 1000 caractères) sur votre projet, ainsi qu'au moins une photo libre de droits, pour publication sur le site de # la FRB, à destination d’un public large. La FRB se réserve le droit de modifier ce texte avant publication sur son site.

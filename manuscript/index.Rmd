@@ -5,7 +5,7 @@ date: "`r params$date`"
 fontsize: 12pt
 output:
   bookdown::gitbook:
-    number_sections: no
+    number_sections: yes
     split_by: chapter  
     config:
       toc:
@@ -36,7 +36,7 @@ output:
     fig_caption: yes
     keep_tex: no
     latex_engine: pdflatex
-    number_sections: no
+    number_sections: yes
     toc: no
     includes:
       in_header: header.tex

@@ -1,2 +1,15 @@
-# 6. Tables
+# Tables
 
+(ref:cap-species) **Bases de données sur la biodiversité de Madagascar.** La base de données incluent des points de présence pour 4969 espèces réparties dans différents groupes taxonomiques. Ces espèces sont représentatives de la biodiversité à Madagascar.
+
+```{r species, results="asis", echo=FALSE}
+df.species <- read.table("tables/species.txt", header=TRUE, sep=";")
+df.species <- df.species[,-c(1)]
+names(df.species)[1] <- " "
+vect.align <- c(rep("l",2), rep("r",3))
+knitr::kable(df.species, caption="(ref:cap-species)", booktabs=TRUE, align=vect.align, linesep="") %>%
+  kable_styling(latex_options=c("HOLD_position","striped"), full_width=FALSE, position="center") %>%
+  group_rows("Plantes", 1, 6) %>%
+  group_rows("Vertébrés", 7, 11) %>%
+  group_rows("Invertébrés", 12, 15)
+```

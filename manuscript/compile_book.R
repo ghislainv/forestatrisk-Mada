@@ -28,8 +28,7 @@ bookdown::render_book("index.Rmd", output_format=pdf_format)
 # Don't indicate output_format to take into account YAML options
 options(knitr.table.format="html")
 # Dynamic YAML options
-title_html <- "The fate of Madagascar's forest: accounting for spatial regional variability
-  in modelling and forecasting deforestation"
+title_html <- "Accounting for spatial regional variability in modelling and forecasting deforestation -- the fate of Madagascar's forests"
 author_html <- "Ghislain Vieilledent and Frédéric Achard"
 data_html <- format(Sys.time(), "%d %B, %Y")
 params <- list(title=title_html,author=author_html ,date=data_html)
