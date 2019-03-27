@@ -63,13 +63,12 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preambule</a></li>
-<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="materials-and-methods.html"><a href="materials-and-methods.html"><i class="fa fa-check"></i><b>2</b> Materials and Methods</a><ul>
 <li class="chapter" data-level="2.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
-<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-through-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison through cross-validation</a></li>
+<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-using-percentage-of-deviance-explained-and-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison using percentage of deviance explained and cross-validation</a></li>
 <li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation"><i class="fa fa-check"></i><b>2.4</b> Forecasting deforestation</a></li>
 <li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasts-skill-scores"><i class="fa fa-check"></i><b>2.5</b> Forecasts skill scores</a></li>
 </ul></li>
@@ -78,7 +77,10 @@
 <li class="chapter" data-level="5" data-path="ackowledgements.html"><a href="ackowledgements.html"><i class="fa fa-check"></i><b>5</b> Ackowledgements</a></li>
 <li class="chapter" data-level="6" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>6</b> Tables</a></li>
 <li class="chapter" data-level="7" data-path="figures.html"><a href="figures.html"><i class="fa fa-check"></i><b>7</b> Figures</a></li>
-<li class="chapter" data-level="8" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>8</b> References</a></li>
+<li class="chapter" data-level="8" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i><b>8</b> Appendices</a><ul>
+<li class="chapter" data-level="8.1" data-path="appendices.html"><a href="appendices.html#appendix-1-mathematical-formulas-for-accuracy-indices"><i class="fa fa-check"></i><b>8.1</b> Appendix 1: Mathematical formulas for accuracy indices</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -100,13 +102,13 @@
 <h1><span class="header-section-number">2</span> Materials and Methods</h1>
 <div id="data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Data</h2>
-<p>We used historical deforestation maps for Madagascar at 30m resolution for three time-periods: 1990-2000, 2000-2010, and 2010-2017 <span class="citation">(Vieilledent <em>et al.</em> <a href="#ref-Vieilledent2018">2018</a>)</span>. We tried to model the observed spatial deforestation process on the period 2000-2010 at the national level. Period 1990-2000 was used to compute the distance to past deforestation for each forest pixel in 2000. Period 2010-2017 was used to compare model forecasts with observations.</p>
-<p>To explain the observed spatial deforestation on the period 2000-2010, we considered various spatial explicative variables describing: topography (altitude and slope), accessibility (distances to nearest road, town and river), forest landscape (distance to forest edge), deforestation history (distance to past deforestation) and land-tenure variables (protected area system). Characteristics of each variables are summarized in Tab. <a href="tables.html#tab:species">6.1</a>.</p>
+<p>We used historical deforestation maps for Madagascar at 30m resolution for three time-periods: 1990-2000, 2000-2010, and 2010-2017 <span class="citation">(Vieilledent <em>et al.</em> <a href="#ref-Vieilledent2018">2018</a><a href="#ref-Vieilledent2018">b</a>)</span>. We tried to model the observed spatial deforestation process on the period 2000-2010 at the national level. Period 1990-2000 was used to compute the distance to past deforestation for each forest pixel in 2000. Period 2010-2017 was used to compare model forecasts with observations.</p>
+<p>To explain the observed spatial deforestation on the period 2000-2010, we considered various spatial explicative variables describing: topography (altitude and slope), accessibility (distances to nearest road, town and river), forest landscape (distance to forest edge), deforestation history (distance to past deforestation) and land-tenure variables (protected area system). Characteristics of each variables are summarized in Tab. <a href="tables.html#tab:variables">6.1</a>.</p>
 <p>Altitude (in m) and slope (in degree) at 90m resolution were obtained from the SRTM Digital Elevation Database v4.1 (<a href="http://srtm.csi.cgiar.org/" class="uri">http://srtm.csi.cgiar.org/</a>). Distances (in m) to nearest road, town and river at 150m resolution were derived from the OpenStreetMap (OSM) project for Madagascar (<a href="http://www.geofabrik.de/" class="uri">http://www.geofabrik.de/</a>). To obtain the road network in Madagascar, we considered the categories “motorway”, “trunk”, “primary”, “secondary” and “tertiary” for the “highway” key in OSM. To obtain the network of populated places in Madagascar (that we simply call “towns” in the present study), we considered the categories “city”, “town” and “village” for the “place” key in OSM. To obtain the river network in Madagascar, we considered the categories “river” and “canal” for the “waterway” key in OSM. For a more detailed description of each category, see the OSM wiki page (<a href="https://wiki.openstreetmap.org/wiki/Tags" class="uri">https://wiki.openstreetmap.org/wiki/Tags</a>). Distance to forest edge was computed at 30m resolution from the forest cover map in 2000. Distance to past deforestation was computed at 30m resolution from the 1990-2000 forest cover change map. For the protected area system, we used the 20/12/2010 version of the SAPM “Système des Aires Protégées à Madagascar” (<a href="http://rebioma.net/" class="uri">http://rebioma.net/</a>) and considered both Protected Areas (created before 2003) and New Protected Areas in the SAPM terminology. Polygons representing protected areas were rasterized at 30m resolution. In total, we obtained 8 spatial variables that could explained the location of the deforestation.</p>
 </div>
 <div id="models" class="section level2">
 <h2><span class="header-section-number">2.2</span> Models</h2>
-<p>We compared two deforestation models. The first model is a simple logistic regression model. We consider the random variable <span class="math inline">\(y_i\)</span> which takes value 1 if the forest pixel <span class="math inline">\(i\)</span> is deforested on the period 2000-2010 and 0 if it is not. We assumed that <span class="math inline">\(y_i\)</span> follows a Bernoulli distribution of parameter <span class="math inline">\(\theta_i\)</span>. In our moded, <span class="math inline">\(\theta_i\)</span> represents the spatial probability of deforestation for pixel <span class="math inline">\(i\)</span>. We assumed that <span class="math inline">\(\theta_i\)</span> is linked, through a logit function, to a linear combination of the explicative variables <span class="math inline">\(X_i\beta\)</span>, where <span class="math inline">\(X_i\)</span> is the vector of explicative variables for pixel <span class="math inline">\(i\)</span> and <span class="math inline">\(\beta\)</span> are the model’s parameters to be estimated. The first model is summarized in Equation <a href="materials-and-methods.html#eq:glm">(2.1)</a>.</p>
+<p>We compared two deforestation models. The first model described in Eq. <a href="materials-and-methods.html#eq:glm">(2.1)</a> is a simple logistic regression model, a special case of generalized linear model (GLM) for binary data. This model is denoted “glm” in subsequent sections and results. We considered the random variable <span class="math inline">\(y_i\)</span> which takes value 1 if the forest pixel <span class="math inline">\(i\)</span> is deforested on the period 2000-2010 and 0 if it is not. We assumed that <span class="math inline">\(y_i\)</span> follows a Bernoulli distribution of parameter <span class="math inline">\(\theta_i\)</span>. In our model, <span class="math inline">\(\theta_i\)</span> represents the spatial probability of deforestation for pixel <span class="math inline">\(i\)</span>. We assumed that <span class="math inline">\(\theta_i\)</span> is linked, through a logit function, to a linear combination of the explicative variables <span class="math inline">\(X_i \beta\)</span>, where <span class="math inline">\(X_i\)</span> is the vector of explicative variables for pixel <span class="math inline">\(i\)</span> and <span class="math inline">\(\beta\)</span> is the vector of model parameters to be estimated.</p>
 <span class="math display" id="eq:glm">\[\begin{equation}
 \begin{split}
   y_i \sim \mathcal{B}ernoulli(\theta_i)\\
@@ -114,20 +116,24 @@
 \end{split}
 \tag{2.1}
 \end{equation}\]</span>
-<p>The second model (Eq. <a href="materials-and-methods.html#eq:icar">(2.2)</a>) includes a spatial random effect <span class="math inline">\(\rho_j\)</span> for each spatial cell of a 10 <span class="math inline">\(\times\)</span> 10 km grid over Madagascar.</p>
+<p>The second model described in Eq. <a href="materials-and-methods.html#eq:icar">(2.2)</a> includes additional random effects <span class="math inline">\(\rho_j\)</span> for each spatial cell <span class="math inline">\(j\)</span> of a 10 <span class="math inline">\(\times\)</span> 10 km grid covering Madagascar. We assumed that random effects are spatially autocorrelated through an intrinsic conditional autoregressive (iCAR) model <span class="citation">(Besag, York &amp; Mollié <a href="#ref-Besag1991">1991</a>; Banerjee, Carlin &amp; Gelfand <a href="#ref-Banerjee2014">2014</a>)</span>. This model is denoted “icar” in subsequent sections and results. In an iCAR model, the random effect <span class="math inline">\(\rho_j\)</span> associated to cell <span class="math inline">\(j\)</span> depends on the values of the random effects <span class="math inline">\(\rho_{j^{\prime}}\)</span> associated to neighbouring cells <span class="math inline">\(j^{\prime}\)</span>. In our case, the neighbouring cells are cells connected to the target cell <span class="math inline">\(j\)</span> through a common border or corner (cells defined by the “king move” in chess). The number of neighbouring cells for cell <span class="math inline">\(j\)</span>, which might vary, is denoted <span class="math inline">\(n_j\)</span>.</p>
 <span class="math display" id="eq:icar">\[\begin{equation}
 \begin{split}
   y_i \sim \mathcal{B}ernoulli(\theta_i)\\
   \text{logit}(\theta_i) = X_i \beta + \rho_j\\
-  \rho_j \sim \mathcal{N}ormal(\mu_j,V_{\rho} / n_j)
+  \rho_j \sim \mathcal{N}ormal(\sum_{j^{\prime}} \rho_{j^{\prime}} / n_j,V_{\rho} / n_j)
 \end{split}
 \tag{2.2}
 \end{equation}\]</span>
-<p>We used a sample of 20,000 forest pixels in 2000 to fit the two models. The sample was stratified between 10,000 deforested pixels in 2000-2010 and 10,000 non-deforested pixels. A balanced data-set is preferable in our case as we are not interested in estimating the intensity of deforestation but only the relative effect of each variable on the spatial probability of deforestation <span class="citation">(Dezécache <em>et al.</em> <a href="#ref-Dezecache2017">2017</a>)</span>.</p>
-<p>Parameter inference was done in a hierarchical Bayesian framework. Non-informative priors were used for all parameters: <span class="math inline">\(\beta \sim Normal(\text{mean}=0,\text{var}=10^6)\)</span> and <span class="math inline">\(V_{\rho} \sim 1/Gamma(\text{shape}=0.05,\text{rate}=0.0005)\)</span>. We used 2000 iterations for the burnin phase. We run a Markov Chain Monte Carlo (MCMC) of 5000 iterations, thining the chain at each 5 iterations. We obtained 1000 estimates for each parameter. MCMC convergence was visually checked looking a the trace and parameter posterior distributions. Function <code>model_binomial_iCAR()</code> from the <code>forestatrisk</code> Python package was used for parameter inference. This function calls an adaptive Metropolis-within-Gibbs algorithm <span class="citation">(Rosenthal &amp; others <a href="#ref-Rosenthal2011">2011</a>)</span> written in C for maximum computation speed.</p>
+<p>The first model can be viewed as a “process-based” model for which variables are selected on an <em>a priori</em> knowledge of the deforestation process. For example, we assumed that the risk of deforestation decreases with the distance to road and forest edge, and is lower in protected areas. The second model can be viewed as a model combining a “process-based” part and a “pattern-oriented” part. Additional spatial random effects <span class="math inline">\(\rho_j\)</span> account for unmeasured or unmeasurable variables that explain a part of the residual spatial variation in the deforestation process (the residual spatial “pattern”) that is not explained by the fixed environmental variables (<span class="math inline">\(X_i\)</span>). While the first model has only 9 parameters to be estimated (one intercept parameter plus 8 slope parameters for the explicative variables), the second model has 6,266 parameters to be estimated, including the 6,257 spatial random effects for the 10 <span class="math inline">\(\times\)</span> 10 km cells covering whole Madagascar (for which lands cover 587 000 km<span class="math inline">\(^2\)</span>)</p>
+<p>We used a random sample of 20,000 forest pixels in 2000 to fit the two models. The sample was stratified between 10,000 deforested pixels in 2000-2010 and 10,000 non-deforested pixels. A balanced sample between deforested and non-deforested pixels is preferable in our case <span class="citation">(Dezécache <em>et al.</em> <a href="#ref-Dezecache2017">2017</a>)</span>. First, deforestation events are rare (~1 %/yr) and a non-stratified sample would lead to very few observations of deforestation events, rendering difficult a good estimation of the slope parameters for the explicative variables. Second, only the value of the linear model intercept is affected by this balanced sampling, which is not the case for the slope or random parameters. In our case, a biased estimate of the intercept is not an issue, as we are not interested in estimating the intensity of deforestation but the relative probability of deforestation between pixels.</p>
+<p>Parameter inference was done in a hierarchical Bayesian framework. Non-informative priors were used for all parameters: <span class="math inline">\(\beta \sim Normal(\text{mean}=0,\text{var}=10^6)\)</span> and <span class="math inline">\(V_{\rho} \sim 1/Gamma(\text{shape}=0.05,\text{rate}=0.0005)\)</span>. We run a Markov Chain Monte Carlo (MCMC) of 7000 iterations. We discarded the first 2000 iterations (burn-in phase) and we thinned the chain each 5 iterations (to reduce autocorrelation between samples). We obtained 1000 estimates for each parameter. MCMC convergence was visually checked looking at MCMC traces and parameter posterior distributions. Function <code>model_binomial_iCAR()</code> from the <code>forestatrisk</code> Python package was used for parameter inference. This function calls an adaptive Metropolis-within-Gibbs algorithm <span class="citation">(Rosenthal &amp; others <a href="#ref-Rosenthal2011">2011</a>)</span> written in C for maximum computation speed.</p>
 </div>
-<div id="model-comparison-through-cross-validation" class="section level2">
-<h2><span class="header-section-number">2.3</span> Model comparison through cross-validation</h2>
+<div id="model-comparison-using-percentage-of-deviance-explained-and-cross-validation" class="section level2">
+<h2><span class="header-section-number">2.3</span> Model comparison using percentage of deviance explained and cross-validation</h2>
+<p>We computed the deviance <span class="math inline">\(\mathcal{D}\)</span> of the two models with the formula <span class="math inline">\(\mathcal{D}=-2 \log \mathcal{L}\)</span>, <span class="math inline">\(\mathcal{L}\)</span> being the likelihood of the model, i.e. the probability of observing the data given the model and estimated parameters. We compared the deviance of the two models with the deviances of both the “null” model and the “full” model. The “null” model assumes a constant probability of deforestation for all observations and has only one parameter, the intercept of the linear relationship. At the other extreme, the “full” model has as many parameters as there are observations. We then computed the percentage of deviance explained by each model, considering that the “null” model explains 0% of the deviance and the “full” model explains 100% of the deviance.</p>
+<p>We also performed a cross-validation to compare models using an independent validation data-set of 20,000 forest pixels in 2000. Again, the sample was stratified between 10,000 deforested pixels in 2000-2010 and 10,000 non-deforested pixels. We used models’ predictions for this set of independent observations to compute several accuracy indices: the Area Under the ROC Curve (AUC), the Figure of Merit (FOM), the Overall Accuracy (OA), the Expected Accuracy (EA), the Kappa of Cohen (K), the Specificity (Spe), the Sensitivity(Sen), and the True Skill Statistics (TSS). Detailed description of these indices can be found in <span class="citation">Pontius <em>et al.</em> (<a href="#ref-Pontius2008">2008</a>)</span> (for the FOM) and <span class="citation">Liu, White &amp; Newell (<a href="#ref-Liu2011">2011</a>)</span> (for all the other indices). Formulas used to compute the indices are presented in Appendix 1.</p>
+<p>Because the value of these indices depends on the deforestation rate <span class="citation">(Pontius <em>et al.</em> <a href="#ref-Pontius2008">2008</a>)</span>, we computed the accuracy indices for various ratios of deforested vs. non-deforested pixels: 1, 5, 10, 25 and 50%. To do so, we selected at random a subsample of the deforested pixels in our validation data-set.</p>
 </div>
 <div id="forecasting-deforestation" class="section level2">
 <h2><span class="header-section-number">2.4</span> Forecasting deforestation</h2>
@@ -135,18 +141,31 @@
 <div id="forecasts-skill-scores" class="section level2">
 <h2><span class="header-section-number">2.5</span> Forecasts skill scores</h2>
 
+
 </div>
 </div>
-<h3> References</h3>
+<h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-Vieilledent2018">
-<p>Vieilledent, G., Grinand, C., Rakotomalala, F.A., Ranaivosoa, R., Rakotoarijaona, J.-R., Allnutt, T.F. &amp; Achard, F. (2018) Combining global tree cover loss data with historical national forest cover maps to look at six decades of deforestation and forest fragmentation in madagascar. <em>Biological Conservation</em>, <strong>222</strong>, 189–197.</p>
+<p>Vieilledent, G., Grinand, C., Rakotomalala, F.A., Ranaivosoa, R., Rakotoarijaona, J.-R., Allnutt, T.F. &amp; Achard, F. (2018b) Combining global tree cover loss data with historical national forest cover maps to look at six decades of deforestation and forest fragmentation in madagascar. <em>Biological Conservation</em>, <strong>222</strong>, 189–197.</p>
+</div>
+<div id="ref-Besag1991">
+<p>Besag, J., York, J. &amp; Mollié, A. (1991) Bayesian image restoration, with two applications in spatial statistics. <em>Annals of the Institute of Statistical Mathematics</em>, <strong>43</strong>, 1–20.</p>
+</div>
+<div id="ref-Banerjee2014">
+<p>Banerjee, S., Carlin, B.P. &amp; Gelfand, A.E. (2014) <em>Hierarchical Modeling and Analysis for Spatial Data, Second Edition</em>. Chapman; Hall/CRC.</p>
 </div>
 <div id="ref-Dezecache2017">
 <p>Dezécache, C., Salles, J.-M., Vieilledent, G. &amp; Hérault, B. (2017) Moving forward socio-economically focused models of deforestation. <em>Global Change Biology</em>, <strong>23</strong>, 3484–3500.</p>
 </div>
 <div id="ref-Rosenthal2011">
 <p>Rosenthal, J.S. &amp; others. (2011) Optimal proposal distributions and adaptive mcmc. <em>Handbook of Markov Chain Monte Carlo</em>, <strong>4</strong>.</p>
+</div>
+<div id="ref-Pontius2008">
+<p>Pontius, R., Boersma, W., Castella, J.-C., Clarke, K., Nijs, T. de, Dietzel, C., Duan, Z., Fotsing, E., Goldstein, N., Kok, K., Koomen, E., Lippitt, C., McConnell, W., Mohd Sood, A., Pijanowski, B., Pithadia, S., Sweeney, S., Trung, T., Veldkamp, A. &amp; Verburg, P. (2008) Comparing the input, output, and validation maps for several models of land change. <em>The Annals of Regional Science</em>, <strong>42</strong>, 11–37.</p>
+</div>
+<div id="ref-Liu2011">
+<p>Liu, C., White, M. &amp; Newell, G. (2011) Measuring and comparing the accuracy of species distribution models with presence-absence data. <em>Ecography</em>, <strong>34</strong>, 232–243.</p>
 </div>
 </div>
             </section>

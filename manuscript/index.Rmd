@@ -55,25 +55,12 @@ opts_chunk$set(echo=FALSE, cache=FALSE,
                # results="hide", 
                warning=FALSE,
                message=FALSE, highlight=TRUE,
-               fig.show="hide", size="small",
+               # fig.show="hide",
+			   size="small",
                fig.align="center",
                fig.pos="H",
                tidy=FALSE)
 ```
-
-# Preambule {-}
-
-(ref:cap-lemur) **_Indri indri_ lemur speices in the Mantadia National Park in the eastern humid forest of Madagascar.** This species is highly threatened by habitat loss associated to deforestation.
-
-```{r lemur, out.width="\\textwidth", fig.cap="(ref:cap-lemur)"}
-knitr::include_graphics("figures/Indri_indri.jpg")
-```
-
-```{r cc-license}
-knitr::include_graphics("figures/by-sa.png")
-```
-
-This report is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
 # Abstract {-}
 
@@ -82,3 +69,5 @@ Deforestation models are useful tools in landscape ecology. They can be used to 
 In the present study, we show how using an intrinsic conditional autoregressive (iCAR) model in a hierarchical Bayesian approach can help structure the residual spatial variability in the deforestation process and obtain more realistic predictions of the deforestation (Dormann et al. 2007). We take Madagascar as a case study considering deforestation on the period 1990-2010 and forecasting deforestation on the period 2010-2050. We demonstrate that accounting for spatial autocorrelation increases the percentage of explained deviance of 21 points for the deforestation model in Madagascar. We also illustrate the use of the newly developed `forestatrisk` Python module to rapidly estimate the numerous parameters of a deforestation model including an iCAR process and efficiently forecast deforestation on large geographical areas at high spatial resolution.
 
 We advocate the use of such models to obtain more accurate land-use change predictions. Such an approach could be used to estimate better the impact of future deforestation in the global carbon cycle and define more efficient strategies for biodiversity conservation in tropical countries.
+
+\newpage

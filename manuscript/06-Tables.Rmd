@@ -1,15 +1,18 @@
 # Tables
 
-(ref:cap-species) **Bases de données sur la biodiversité de Madagascar.** La base de données incluent des points de présence pour 4969 espèces réparties dans différents groupes taxonomiques. Ces espèces sont représentatives de la biodiversité à Madagascar.
+(ref:cap-variables) **Set of explicative variables used to model the spatial probability of deforestation.** A total of height variables were tested. They described topography, forest accessibility, forest landscape, land tenure and deforestation history.\vspace{0.5cm} 
 
-```{r species, results="asis", echo=FALSE}
-df.species <- read.table("tables/species.txt", header=TRUE, sep=";")
-df.species <- df.species[,-c(1)]
-names(df.species)[1] <- " "
-vect.align <- c(rep("l",2), rep("r",3))
-knitr::kable(df.species, caption="(ref:cap-species)", booktabs=TRUE, align=vect.align, linesep="") %>%
-  kable_styling(latex_options=c("HOLD_position","striped"), full_width=FALSE, position="center") %>%
-  group_rows("Plantes", 1, 6) %>%
-  group_rows("Vertébrés", 7, 11) %>%
-  group_rows("Invertébrés", 12, 15)
+```{r variables, results="asis", echo=FALSE}
+df.variables <- read.table("tables/variables.txt", header=TRUE, sep=",")
+vect.align <- c(rep("l",3), rep("r",2))
+col.names <- c("Product","Source","Variable derived","Unit","Resolution (m)")
+knitr::kable(df.variables, caption="(ref:cap-variables)", booktabs=TRUE,
+			 col.names=col.names,
+			 align=vect.align, linesep="") %>%
+	column_spec(c(1:3),width="3cm") %>%
+	column_spec(4,width="2cm") %>%
+	column_spec(5,width="3cm") %>%
+	kable_styling(latex_options=c("HOLD_position","striped"), full_width=FALSE, position="center")
 ```
+
+\newpage

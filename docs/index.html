@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="abstract.html">
+<link rel="next" href="introduction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -63,13 +63,12 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preambule</a></li>
-<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="materials-and-methods.html"><a href="materials-and-methods.html"><i class="fa fa-check"></i><b>2</b> Materials and Methods</a><ul>
 <li class="chapter" data-level="2.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
-<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-through-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison through cross-validation</a></li>
+<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-using-percentage-of-deviance-explained-and-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison using percentage of deviance explained and cross-validation</a></li>
 <li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation"><i class="fa fa-check"></i><b>2.4</b> Forecasting deforestation</a></li>
 <li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasts-skill-scores"><i class="fa fa-check"></i><b>2.5</b> Forecasts skill scores</a></li>
 </ul></li>
@@ -78,7 +77,10 @@
 <li class="chapter" data-level="5" data-path="ackowledgements.html"><a href="ackowledgements.html"><i class="fa fa-check"></i><b>5</b> Ackowledgements</a></li>
 <li class="chapter" data-level="6" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>6</b> Tables</a></li>
 <li class="chapter" data-level="7" data-path="figures.html"><a href="figures.html"><i class="fa fa-check"></i><b>7</b> Figures</a></li>
-<li class="chapter" data-level="8" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>8</b> References</a></li>
+<li class="chapter" data-level="8" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i><b>8</b> Appendices</a><ul>
+<li class="chapter" data-level="8.1" data-path="appendices.html"><a href="appendices.html#appendix-1-mathematical-formulas-for-accuracy-indices"><i class="fa fa-check"></i><b>8.1</b> Appendix 1: Mathematical formulas for accuracy indices</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -99,19 +101,15 @@
 <div id="header">
 <h1 class="title">Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</h1>
 <p class="author"><em>Ghislain Vieilledent and Frédéric Achard</em></p>
-<p class="date"><em>22 mars, 2019</em></p>
+<p class="date"><em>27 mars, 2019</em></p>
 </div>
-<div id="preambule" class="section level1 unnumbered">
-<h1>Preambule</h1>
+<div id="abstract" class="section level1 unnumbered">
+<h1>Abstract</h1>
+<p>Deforestation models are useful tools in landscape ecology. They can be used to identify the main drivers of deforestation and estimate their relative contribution. When spatially explicit, models can also be used to predict the location of future deforestation. Deforestation forecasts can be used to estimate associated CO<span class="math inline">\(_2\)</span> emissions responsible of climate change, prioritize areas for conservation and identify refuge areas for biodiversity. Most of spatial deforestation models includes landscape variables such as the distance to forest edge, the distance to nearest road or the presence of protected areas. Such variables commonly explain a small part of the deforestation process and a large spatial variability remains unexplained by the model.</p>
+<p>In the present study, we show how using an intrinsic conditional autoregressive (iCAR) model in a hierarchical Bayesian approach can help structure the residual spatial variability in the deforestation process and obtain more realistic predictions of the deforestation (Dormann et al. 2007). We take Madagascar as a case study considering deforestation on the period 1990-2010 and forecasting deforestation on the period 2010-2050. We demonstrate that accounting for spatial autocorrelation increases the percentage of explained deviance of 21 points for the deforestation model in Madagascar. We also illustrate the use of the newly developed <code>forestatrisk</code> Python module to rapidly estimate the numerous parameters of a deforestation model including an iCAR process and efficiently forecast deforestation on large geographical areas at high spatial resolution.</p>
+<p>We advocate the use of such models to obtain more accurate land-use change predictions. Such an approach could be used to estimate better the impact of future deforestation in the global carbon cycle and define more efficient strategies for biodiversity conservation in tropical countries.</p>
 
-<div class="figure" style="text-align: center"><span id="fig:lemur"></span>
-<img src="figures/Indri_indri.jpg" alt="Indri indri lemur speices in the Mantadia National Park in the eastern humid forest of Madagascar. This species is highly threatened by habitat loss associated to deforestation." width="\textwidth" />
-<p class="caption">
-Figure .: <strong><em>Indri indri</em> lemur speices in the Mantadia National Park in the eastern humid forest of Madagascar.</strong> This species is highly threatened by habitat loss associated to deforestation.
-</p>
-</div>
-<p><img src="figures/by-sa.png" width="202" style="display: block; margin: auto;" /></p>
-<p>This report is licensed under the <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+
 </div>
             </section>
 
@@ -119,7 +117,7 @@ Figure .: <strong><em>Indri indri</em> lemur speices in the Mantadia National Pa
         </div>
       </div>
 
-<a href="abstract.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

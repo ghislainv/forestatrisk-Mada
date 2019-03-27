@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="abstract.html">
+<link rel="prev" href="index.html">
 <link rel="next" href="materials-and-methods.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -63,13 +63,12 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preambule</a></li>
-<li class="chapter" data-level="" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="materials-and-methods.html"><a href="materials-and-methods.html"><i class="fa fa-check"></i><b>2</b> Materials and Methods</a><ul>
 <li class="chapter" data-level="2.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
-<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-through-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison through cross-validation</a></li>
+<li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-using-percentage-of-deviance-explained-and-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison using percentage of deviance explained and cross-validation</a></li>
 <li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation"><i class="fa fa-check"></i><b>2.4</b> Forecasting deforestation</a></li>
 <li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasts-skill-scores"><i class="fa fa-check"></i><b>2.5</b> Forecasts skill scores</a></li>
 </ul></li>
@@ -78,7 +77,10 @@
 <li class="chapter" data-level="5" data-path="ackowledgements.html"><a href="ackowledgements.html"><i class="fa fa-check"></i><b>5</b> Ackowledgements</a></li>
 <li class="chapter" data-level="6" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>6</b> Tables</a></li>
 <li class="chapter" data-level="7" data-path="figures.html"><a href="figures.html"><i class="fa fa-check"></i><b>7</b> Figures</a></li>
-<li class="chapter" data-level="8" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>8</b> References</a></li>
+<li class="chapter" data-level="8" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i><b>8</b> Appendices</a><ul>
+<li class="chapter" data-level="8.1" data-path="appendices.html"><a href="appendices.html#appendix-1-mathematical-formulas-for-accuracy-indices"><i class="fa fa-check"></i><b>8.1</b> Appendix 1: Mathematical formulas for accuracy indices</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -98,14 +100,7 @@
             <section class="normal" id="section-">
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>Madagascar est une île de l’océan indien qui s’est détachée de l’Afrique puis de l’Inde il y a plusieurs dizaines de millions d’années. La biodiversité y a évolué de façon isolée. Ainsi, près de 90% des espèces n’existent que sur l’île. Cette biodiversité est fortement menacée par les changements climatiques et la déforestation. Le projet BioSceneMada, en s’appuyant sur des modèles climatiques, écologiques et paysagers, se propose d’établir des scénarios d’évolution de la biodiversité à Madagascar sous l’effet conjoint du changement climatique et de la déforestation. Les cartes issues du projet permettent d’identifier les zones à risque de perte de biodiversité et de déforestation ainsi que les zones refuges pour la biodiversité. Ces cartes peuvent être utilisées afin d’agir efficacement pour la conservation des forêts et de la biodiversité à Madagascar, notamment en priorisant les actions de conservation sur des zones cibles, tout en s’appuyant sur le réseau d’aires protégées actuel.</p>
 
-<div class="figure" style="text-align: center"><span id="fig:baobab"></span>
-<img src="figures/Adansonia_suarezensis.jpg" alt="Population de baobabs de l’espèce Adansonia suarezensis sur le site de la Montagne des Français au nord de Madagascar. Cette espèce est fortement menacée par la perte d’habitat associée aux changements climatiques." width="\textwidth" />
-<p class="caption">
-Figure 1.1: <strong>Population de baobabs de l’espèce <em>Adansonia suarezensis</em> sur le site de la Montagne des Français au nord de Madagascar.</strong> Cette espèce est fortement menacée par la perte d’habitat associée aux changements climatiques.
-</p>
-</div>
 
 </div>
             </section>
@@ -113,7 +108,7 @@ Figure 1.1: <strong>Population de baobabs de l’espèce <em>Adansonia suarezens
           </div>
         </div>
       </div>
-<a href="abstract.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="materials-and-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

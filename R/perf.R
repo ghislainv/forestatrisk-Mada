@@ -1,7 +1,20 @@
 # Libraries
 require(dplyr)
 
-# Accuracy_indices
+# AUC (see Liu 2011)
+computeAUC <- function(pos.scores, neg.scores, n_sample=100000) {
+	# Args:
+	#   pos.scores: scores of positive observations
+	#   neg.scores: scores of negative observations
+	#   n_samples : number of samples to approximate AUC
+	
+	pos.sample <- sample(pos.scores, n_sample, replace=TRUE)
+	neg.sample <- sample(neg.scores, n_sample, replace=TRUE)
+	AUC <- mean(1.0*(pos.sample > neg.sample) + 0.5*(pos.sample==neg.sample))
+	return(AUC)
+}
+
+# Accuracy_indices (see Liu 2011 and Pontius 2008)
 accuracy_indices <- function(pred, obs) {
   
   if (identical(dim(pred),as.integer(c(2,2)))) {

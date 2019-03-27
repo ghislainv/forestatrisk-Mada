@@ -1,0 +1,5 @@
+"model","deviance","perc"
+"null",27726,0
+"glm",25673,7
+"icar",19357,30
+"full",0,100

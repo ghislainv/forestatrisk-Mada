@@ -19,7 +19,7 @@ setwd("manuscript")
 # pdf
 options(knitr.table.format="latex")
 pdf_format <- bookdown::pdf_document2(citation_package="natbib", fig_caption=TRUE, keep_tex=FALSE,
-                                      latex_engine="pdflatex", number_sections=FALSE, toc=FALSE,
+                                      latex_engine="pdflatex", number_sections=TRUE, toc=FALSE,
                                       includes=list(in_header="header.tex", before_body="doc_prefix.tex"))
 params <- list(title="",author="",date="")
 bookdown::render_book("index.Rmd", output_format=pdf_format)
@@ -30,6 +30,6 @@ options(knitr.table.format="html")
 # Dynamic YAML options
 title_html <- "Accounting for spatial regional variability in modelling and forecasting deforestation -- the fate of Madagascar's forests"
 author_html <- "Ghislain Vieilledent and Frédéric Achard"
-data_html <- format(Sys.time(), "%d %B, %Y")
-params <- list(title=title_html,author=author_html ,date=data_html)
+date_html <- format(Sys.time(), "%d %B, %Y")
+params <- list(title=title_html,author=author_html ,date=date_html)
 bookdown::render_book("index.Rmd")
