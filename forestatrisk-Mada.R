@@ -320,6 +320,12 @@ df_mod_valid
 # Spatial probability of deforestation
 # ========================================================
 
+## Number of forest pixels in 2000
+nfor2010_1 <- far$countpix("data/model/fordefor2010.tif", value=1L, blk_rows=128L)
+nfor2010_0 <- far$countpix("data/model/fordefor2010.tif", value=0L, blk_rows=128L)
+nfor2000_npix <- nfor2010_1$npix + nfor2010_0$npix
+nfor2000_ha <- nfor2010_1$area + nfor2010_0$area
+
 ## ----icar probabilities--------------------------------------------------
 if (!file.exists("output/prob_icar.tif")) {
   far$predict_raster_binomial_iCAR(
