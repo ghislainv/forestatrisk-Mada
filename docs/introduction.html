@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</title>
-  <meta name="description" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests">
+  <title>1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar</title>
+  <meta name="description" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests" />
+  <meta property="og:title" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests" />
+  <meta name="twitter:title" content="1 Introduction | Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar" />
   
   
   
@@ -69,8 +69,12 @@
 <li class="chapter" data-level="2.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
 <li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-using-percentage-of-deviance-explained-and-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison using percentage of deviance explained and cross-validation</a></li>
-<li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation"><i class="fa fa-check"></i><b>2.4</b> Forecasting deforestation</a></li>
-<li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasts-skill-scores"><i class="fa fa-check"></i><b>2.5</b> Forecasts skill scores</a></li>
+<li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#comparing-models-forecasting-skill-on-the-period-20002017"><i class="fa fa-check"></i><b>2.4</b> Comparing models’ forecasting skill on the period 2000–2017</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#computing-the-spatial-probability-of-deforestation-in-2010"><i class="fa fa-check"></i><b>2.4.1</b> Computing the spatial probability of deforestation in 2010</a></li>
+<li class="chapter" data-level="2.4.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#projecting-the-forest-cover-change-on-the-period-20102017"><i class="fa fa-check"></i><b>2.4.2</b> Projecting the forest cover change on the period 2010–2017</a></li>
+<li class="chapter" data-level="2.4.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#validating-the-forest-cover-change-on-the-period-20102017"><i class="fa fa-check"></i><b>2.4.3</b> Validating the forest cover change on the period 2010–2017</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation-on-the-periods-20172050-and-20172100"><i class="fa fa-check"></i><b>2.5</b> Forecasting deforestation on the periods 2017–2050 and 2017–2100</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a></li>
 <li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
@@ -90,7 +94,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar</a>
           </h1>
         </div>
 
@@ -100,8 +104,40 @@
             <section class="normal" id="section-">
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
+<p><strong>Context</strong></p>
+<ul>
+<li>Importance of modelling and forecasting deforestation.</li>
+</ul>
+<p><strong>Gap</strong></p>
+<ul>
+<li>Difficult task as highly stochastic and mutlifactorial process.</li>
+<li>Deforestation process highly variable in space <span class="citation">(Vieilledent <em>et al.</em> <a href="#ref-Vieilledent2018">2018</a><a href="#ref-Vieilledent2018">b</a>; Yesuf, Brown &amp; Walford <a href="#ref-Yesuf2019">2019</a>)</span></li>
+<li>Spatial explanatory variables explain only a small part of the deforestation process <span class="citation">(Vieilledent, Grinand &amp; Vaudry <a href="#ref-Vieilledent2013">2013</a>)</span></li>
+<li>Socio-economic factors are often obtained at large spatial scale (administrative boundaries) and are weak informative factors for small scale deforestation <span class="citation">(Vieilledent, Grinand &amp; Vaudry <a href="#ref-Vieilledent2013">2013</a>)</span></li>
+<li>Bad models can lead to completely wrong projections</li>
+</ul>
+<p><strong>Process-based vs. pattern-oriented models</strong> <span class="citation">(Castella &amp; Verburg <a href="#ref-Castella2007">2007</a>)</span>.</p>
+<p><strong>Present study</strong> Spatial autocorrelated random effect to account for unmeasured hidden factors explaining the residual spatial variability <span class="citation">(Clark <a href="#ref-Clark2005">2005</a>)</span>.</p>
 
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Vieilledent2018">
+<p>Vieilledent, G., Grinand, C., Rakotomalala, F.A., Ranaivosoa, R., Rakotoarijaona, J.-R., Allnutt, T.F. &amp; Achard, F. (2018b) Combining global tree cover loss data with historical national forest cover maps to look at six decades of deforestation and forest fragmentation in madagascar. <em>Biological Conservation</em>, <strong>222</strong>, 189–197.</p>
+</div>
+<div id="ref-Yesuf2019">
+<p>Yesuf, G., Brown, K.A. &amp; Walford, N. (2019) Assessing regional-scale variability in deforestation and forest degradation rates in a tropical biodiversity hotspot eds N. Pettorelli &amp; M. Wegmann. <em>Remote Sensing in Ecology and Conservation</em>.</p>
+</div>
+<div id="ref-Vieilledent2013">
+<p>Vieilledent, G., Grinand, C. &amp; Vaudry, R. (2013) Forecasting deforestation and carbon emissions in tropical developing countries facing demographic expansion: A case study in madagascar. <em>Ecology and Evolution</em>, <strong>3</strong>, 1702–1716.</p>
+</div>
+<div id="ref-Castella2007">
+<p>Castella, J.-C. &amp; Verburg, P.H. (2007) Combination of process-oriented and pattern-oriented models of land-use change in a mountain area of vietnam. <em>Ecological Modelling</em>, <strong>202</strong>, 410–420.</p>
+</div>
+<div id="ref-Clark2005">
+<p>Clark, J.S. (2005) Why environmental scientists are becoming bayesians. <em>Ecology Letters</em>, <strong>8</strong>, 2–14.</p>
+</div>
 </div>
             </section>
 

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</title>
-  <meta name="description" content="Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests">
+  <title>Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar</title>
+  <meta name="description" content="Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests" />
+  <meta property="og:title" content="Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests" />
+  <meta name="twitter:title" content="Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar" />
   
   
   
@@ -69,8 +69,12 @@
 <li class="chapter" data-level="2.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
 <li class="chapter" data-level="2.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#model-comparison-using-percentage-of-deviance-explained-and-cross-validation"><i class="fa fa-check"></i><b>2.3</b> Model comparison using percentage of deviance explained and cross-validation</a></li>
-<li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation"><i class="fa fa-check"></i><b>2.4</b> Forecasting deforestation</a></li>
-<li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasts-skill-scores"><i class="fa fa-check"></i><b>2.5</b> Forecasts skill scores</a></li>
+<li class="chapter" data-level="2.4" data-path="materials-and-methods.html"><a href="materials-and-methods.html#comparing-models-forecasting-skill-on-the-period-20002017"><i class="fa fa-check"></i><b>2.4</b> Comparing models’ forecasting skill on the period 2000–2017</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="materials-and-methods.html"><a href="materials-and-methods.html#computing-the-spatial-probability-of-deforestation-in-2010"><i class="fa fa-check"></i><b>2.4.1</b> Computing the spatial probability of deforestation in 2010</a></li>
+<li class="chapter" data-level="2.4.2" data-path="materials-and-methods.html"><a href="materials-and-methods.html#projecting-the-forest-cover-change-on-the-period-20102017"><i class="fa fa-check"></i><b>2.4.2</b> Projecting the forest cover change on the period 2010–2017</a></li>
+<li class="chapter" data-level="2.4.3" data-path="materials-and-methods.html"><a href="materials-and-methods.html#validating-the-forest-cover-change-on-the-period-20102017"><i class="fa fa-check"></i><b>2.4.3</b> Validating the forest cover change on the period 2010–2017</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="materials-and-methods.html"><a href="materials-and-methods.html#forecasting-deforestation-on-the-periods-20172050-and-20172100"><i class="fa fa-check"></i><b>2.5</b> Forecasting deforestation on the periods 2017–2050 and 2017–2100</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a></li>
 <li class="chapter" data-level="4" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>4</b> Discussion</a></li>
@@ -90,7 +94,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar</a>
           </h1>
         </div>
 
@@ -99,15 +103,17 @@
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Accounting for spatial regional variability in modelling and forecasting deforestation – the fate of Madagascar’s forests</h1>
+<h1 class="title">Accounting for spatial regional variability in modelling and forecasting deforestation – Identifying forest refuge areas in Madagascar</h1>
 <p class="author"><em>Ghislain Vieilledent and Frédéric Achard</em></p>
-<p class="date"><em>28 mars, 2019</em></p>
+<p class="date"><em>05 avril, 2019</em></p>
 </div>
 <div id="abstract" class="section level1 unnumbered">
 <h1>Abstract</h1>
 <p>Deforestation models are useful tools in landscape ecology. They can be used to identify the main drivers of deforestation and estimate their relative contribution. When spatially explicit, models can also be used to predict the location of future deforestation. Deforestation forecasts can be used to estimate associated CO<span class="math inline">\(_2\)</span> emissions responsible of climate change, prioritize areas for conservation and identify refuge areas for biodiversity. Most of spatial deforestation models includes landscape variables such as the distance to forest edge, the distance to nearest road or the presence of protected areas. Such variables commonly explain a small part of the deforestation process and a large spatial variability remains unexplained by the model.</p>
-<p>In the present study, we show how using an intrinsic conditional autoregressive (iCAR) model in a hierarchical Bayesian approach can help structure the residual spatial variability in the deforestation process and obtain more realistic predictions of the deforestation (Dormann et al. 2007). We take Madagascar as a case study considering deforestation on the period 1990-2010 and forecasting deforestation on the period 2010-2050. We demonstrate that accounting for spatial autocorrelation increases the percentage of explained deviance of 21 points for the deforestation model in Madagascar. We also illustrate the use of the newly developed <code>forestatrisk</code> Python module to rapidly estimate the numerous parameters of a deforestation model including an iCAR process and efficiently forecast deforestation on large geographical areas at high spatial resolution.</p>
+<p>In the present study, we show how using an intrinsic conditional autoregressive (iCAR) model in a hierarchical Bayesian approach can help structure the residual spatial variability in the deforestation process and obtain more realistic predictions of the deforestation. We take Madagascar as a case study considering deforestation on the period 1990-2010 and forecasting deforestation on the period 2010-2050. We demonstrate that accounting for spatial autocorrelation increases the percentage of explained deviance of 21 points for the deforestation model in Madagascar. We also illustrate the use of the newly developed <code>forestatrisk</code> Python module to rapidly estimate the numerous parameters of a deforestation model including an iCAR process and efficiently forecast deforestation on large geographical areas at high spatial resolution.</p>
 <p>We advocate the use of such models to obtain more accurate land-use change predictions. Such an approach could be used to estimate better the impact of future deforestation in the global carbon cycle and define more efficient strategies for biodiversity conservation in tropical countries.</p>
+<p><strong>Keywords:</strong> deforestation, forecasts, forest cover change, forest refuge areas, Madagascar, random effects, spatial autocorrelation, spatial modelling, variability</p>
+<p>Target journals (selection): <em>Conservation Biology</em> (IF: 5.89), <em>Biological Conservation</em> (IF: 4.66), <em>Environmental Research Letters</em> (IF: 4.54), <em>Landscape Ecology</em> (IF: 3.83).</p>
 
 
 </div>

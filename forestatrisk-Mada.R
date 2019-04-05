@@ -320,9 +320,11 @@ df_mod_valid
 # Spatial probability of deforestation
 # ========================================================
 
-## Number of forest pixels in 2000
+## Number of forest pixels in 2000 and 2010
 nfor2010_1 <- far$countpix("data/model/fordefor2010.tif", value=1L, blk_rows=128L)
 nfor2010_0 <- far$countpix("data/model/fordefor2010.tif", value=0L, blk_rows=128L)
+nfor2010_npix <- nfor2010_1$npix
+nfor2010_ha <- nfor2010_1$area
 nfor2000_npix <- nfor2010_1$npix + nfor2010_0$npix
 nfor2000_ha <- nfor2010_1$area + nfor2010_0$area
 
@@ -376,6 +378,7 @@ deforested_area_2017 <- count_d$area
 
 ## ----proj2017, results="hide"--------------------------------------------
 mod <- c("icar", "glm")
+error_ha <- vector()
 for (i in 1:length(mod)) {
 	cat(glue("Projections in 2017: {mod[i]}"),"\n")
 	if (!file.exists(glue("output/proj2017_{mod[i]}.tif"))) {
@@ -383,8 +386,10 @@ for (i in 1:length(mod)) {
 								 hectares=874211, # deforested_area_2017,
 								 output_file=glue("output/proj2017_{mod[i]}.tif"),
 								 blk_rows=128L)
+		error_ha[i] <- deforest[[3]]
 	}
 }
+save(error_ha, file="output/error.rda")
 
 # ================================
 # Accuracy of projections in 2017
