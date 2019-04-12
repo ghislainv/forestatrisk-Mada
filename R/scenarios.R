@@ -1,10 +1,11 @@
 # Library
 library(dplyr)
 library(readr)
+library(ggplot2)
 
 # Data with forest cover and population from 1990 to 2017
 # see: http://dx.doi.org/10.18167/DVN1/AUBRRC
-df_par <- read.table("data/scenarios/barnes.txt", header=TRUE, sep=",")
+df_par <- read_csv("data/scenarios/barnes.txt")
 
 # Time-interval
 int <- df_par$Year[-c(1)]-df_par$Year[-length(df_par$Year)]
@@ -55,5 +56,40 @@ D_np[niter+1] <- D.func(For[niter+1], Pop[1], par)
 df_forest <- tibble(Year, For, Pop, For_np, D, D_np)
 write_csv(df_forest, "output/for_proj.csv")
 
+# ====================================
+# Plots
+# ====================================
 
+# Plot demography
+df_pop_2017 <- df_par %>% filter(Year==2017) %>% select(Year, Pop)
+df_un <- dplyr::bind_rows(df_un,df_pop_2017)
+pl_demo <- ggplot(data=df_un, aes(Year, Pop/1000)) + 
+	geom_line() +
+	geom_vline(xintercept=2017, linetype="dashed") + 
+	ylab(label="Population (million)") +
+	theme(text=element_text(size=20))
+ggsave("output/demography.png", pl_demo, width=8, height=5, dpi="retina")
 
+# Plot deforestation
+defor_2000_2017 <- data.frame(Year=2008.5, D=96)
+pl_defor <- ggplot(data=df_forest, aes(Year, D)) + 
+	geom_line() +
+	geom_vline(xintercept=2017, linetype="dashed") + 
+	geom_point(data=defor_2000_2017, size=2) +
+	ylab(label="Deforestation (Kha/yr)") +
+	theme(text=element_text(size=20))
+ggsave("output/deforestation.png", pl_defor, width=8, height=5, dpi="retina")
+
+# Plot forest cover change
+forest_2000_2017 <- df_par %>% filter(Year>=2000)
+pl_forest <- ggplot(data=df_forest, aes(Year, For/1000)) + 
+	geom_line() +
+	geom_vline(xintercept=2017, linetype="dashed") + 
+	geom_point(data=forest_2000_2017, size=2) +
+	ylab(label="Forest cover (Mha)") +
+	theme(text=element_text(size=20))
+ggsave("output/forest_cover_change.png", pl_forest, width=8, height=5, dpi="retina")
+
+# Copy plots
+f <- c("output/demography.png", "output/deforestation.png", "output/forest_cover_change.png")
+file.copy(from=f, to="manuscript/figures/", overwrite=TRUE)

@@ -38,7 +38,7 @@ accuracy_indices <- function(pred, obs) {
   # Accuracy indices
   N <- n11 + n10 + n00 + n01
   OA <- (n11 + n00) / N
-  FOM <- n00 / (n11 + n10 + n01)
+  FOM <- n00 / (n00 + n10 + n01)
   Specificity <- n11 / (n11 + n01)
   Sensitivity <- n00 / (n00 + n10)
   TSS <- Sensitivity + Specificity - 1
