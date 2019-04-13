@@ -83,6 +83,7 @@
 <li class="chapter" data-level="7" data-path="figures.html"><a href="figures.html"><i class="fa fa-check"></i><b>7</b> Figures</a></li>
 <li class="chapter" data-level="8" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i><b>8</b> Appendices</a><ul>
 <li class="chapter" data-level="8.1" data-path="appendices.html"><a href="appendices.html#appendix-1-mathematical-formulas-for-accuracy-indices"><i class="fa fa-check"></i><b>8.1</b> Appendix 1: Mathematical formulas for accuracy indices</a></li>
+<li class="chapter" data-level="8.2" data-path="appendices.html"><a href="appendices.html#appendix-2-barnes-model-of-deforestation-intensity"><i class="fa fa-check"></i><b>8.2</b> Appendix 2: Barnes model of deforestation intensity</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -109,7 +110,7 @@
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:confusion-matrix">Table 8.1: </span><strong>Confusion matrix used to compute accuracy indices.</strong> A confusion matrix can be computed to compare model predictions with observations. 
+<span id="tab:confusion-matrix">Table 8.1: </span><strong>Confusion matrix used to compute accuracy indices</strong>. A confusion matrix can be computed to compare model predictions with observations. 
 </caption>
 <thead>
 <tr>
@@ -196,7 +197,7 @@ Total
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:accuracy-indices">Table 8.2: </span><strong>Formulas used to compute accuracy indices.</strong>. Several accuracy indices can be computed from the confusion matrix to estimate and compare models’ predictive skill. We followed the definitions of <span class="citation">Pontius <em>et al.</em> (<a href="#ref-Pontius2008">2008</a>)</span> for the FOM and <span class="citation">Liu, White &amp; Newell (<a href="#ref-Liu2011">2011</a>)</span> for the other indices. Note that the AUC relies on the predicted probabilities for observations 0 (non-deforested) and 1 (deforested), not on the confusion matrix per se.  
+<span id="tab:accuracy-indices">Table 8.2: </span><strong>Formulas used to compute accuracy indices</strong>. Several accuracy indices can be computed from the confusion matrix to estimate and compare models’ predictive skill. We followed the definitions of <span class="citation">Pontius <em>et al.</em> (<a href="#ref-Pontius2008">2008</a>)</span> for the FOM and <span class="citation">Liu, White &amp; Newell (<a href="#ref-Liu2011">2011</a>)</span> for the other indices. Note that the AUC relies on the predicted probabilities for observations 0 (non-deforested) and 1 (deforested), not on the confusion matrix.  
 </caption>
 <thead>
 <tr>
@@ -289,6 +290,198 @@ where <span class="math inline">\(\phi(\delta_i,\theta_j)\)</span> equals 1 if <
 </tr>
 </tbody>
 </table>
+</div>
+<div id="appendix-2-barnes-model-of-deforestation-intensity" class="section level2">
+<h2><span class="header-section-number">8.2</span> Appendix 2: Barnes model of deforestation intensity</h2>
+
+<div class="figure" style="text-align: center"><span id="fig:demo"></span>
+<img src="figures/demography.png" alt="Demographic projections for Madagascar. Projections come from the 2017 revision of the United Nations World Population Prospects (United Nations 2017). In 2000, population in Madagascar was estimated at 15.8 M. In 2017 (vertical dashed line), it is estimated at 25.6 M. Projections indicate that population should roughly double from 2017 to 2050 (reaching 53.8 M in 2050) and quadruple from 2017 to 2100 (reaching 98.0 M in 2100)." width="\textwidth" />
+<p class="caption">
+Figure 8.1: <strong>Demographic projections for Madagascar</strong>. Projections come from the 2017 revision of the United Nations World Population Prospects <span class="citation">(United Nations <a href="#ref-UN2017">2017</a>)</span>. In 2000, population in Madagascar was estimated at 15.8 M. In 2017 (vertical dashed line), it is estimated at 25.6 M. Projections indicate that population should roughly double from 2017 to 2050 (reaching 53.8 M in 2050) and quadruple from 2017 to 2100 (reaching 98.0 M in 2100).
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:defor"></span>
+<img src="figures/deforestation.png" alt="Deforestation intensity projections for Madagascar. We used the following model adapted from Barnes (1990) (see section Materials and Methods for more details): \(D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))\) to iteratively forecast deforestation \(D_{t,t+1}\) and forest cover \(F_t\) from 2017 to 2100 using the United Nations demographic projections \(P_t\) (shown in Fig. 8.1). Deforestation is estimated at 94 Kha/yr in 2017 (vertical dashed line). Observed mean annual deforestation (84 Kha/yr) on 2000-2017 (Vieilledent et al. 2018a) is represented with a black dot. Mean deforestation should increase until 2040 (up to 102 Kha/yr) due to fast population growth and relatively high forest cover (\(\geq\) 6 Mha, see Fig. 8.3). After 2040, deforestation should decrease due to slower population growth and lower residual forest cover (\(&lt;\) 6 Mha). Despite this decrease, deforestation should remain high for several decades (\(&gt;\) 85 Kha/yr until 2075)." width="\textwidth" />
+<p class="caption">
+Figure 8.2: <strong>Deforestation intensity projections for Madagascar</strong>. We used the following model adapted from <span class="citation">Barnes (<a href="#ref-Barnes1990">1990</a>)</span> (see section Materials and Methods for more details): <span class="math inline">\(D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))\)</span> to iteratively forecast deforestation <span class="math inline">\(D_{t,t+1}\)</span> and forest cover <span class="math inline">\(F_t\)</span> from 2017 to 2100 using the United Nations demographic projections <span class="math inline">\(P_t\)</span> (shown in Fig. <a href="appendices.html#fig:demo">8.1</a>). Deforestation is estimated at 94 Kha/yr in 2017 (vertical dashed line). Observed mean annual deforestation (84 Kha/yr) on 2000-2017 <span class="citation">(Vieilledent <em>et al.</em> <a href="#ref-Vieilledent2018data">2018</a><a href="#ref-Vieilledent2018data">a</a>)</span> is represented with a black dot. Mean deforestation should increase until 2040 (up to 102 Kha/yr) due to fast population growth and relatively high forest cover (<span class="math inline">\(\geq\)</span> 6 Mha, see Fig. <a href="appendices.html#fig:forest">8.3</a>). After 2040, deforestation should decrease due to slower population growth and lower residual forest cover (<span class="math inline">\(&lt;\)</span> 6 Mha). Despite this decrease, deforestation should remain high for several decades (<span class="math inline">\(&gt;\)</span> 85 Kha/yr until 2075).
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:forest"></span>
+<img src="figures/forest_cover_change.png" alt="Natural forest cover projections for Madagascar. We used the following model adapted from Barnes (1990) (see section Materials and Methods for more details): \(D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))\) to iteratively forecast deforestation \(D_{t,t+1}\) and forest cover \(F_t\) from 2017 to 2100 using the United Nations demographic projections \(P_t\) (shown in Fig. 8.1). Natural forest cover observations for 2000, 2005, 2010, 2015, and 2017 (Vieilledent et al. 2018a) are represented with black dots. Natural forest covers 8.4 Mha in 2017 (vertical dashed line). The model predicts that forest should cover 5.2 Mha in 2050 and 1.0 Mha in 2100." width="\textwidth" />
+<p class="caption">
+Figure 8.3: <strong>Natural forest cover projections for Madagascar</strong>. We used the following model adapted from <span class="citation">Barnes (<a href="#ref-Barnes1990">1990</a>)</span> (see section Materials and Methods for more details): <span class="math inline">\(D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))\)</span> to iteratively forecast deforestation <span class="math inline">\(D_{t,t+1}\)</span> and forest cover <span class="math inline">\(F_t\)</span> from 2017 to 2100 using the United Nations demographic projections <span class="math inline">\(P_t\)</span> (shown in Fig. <a href="appendices.html#fig:demo">8.1</a>). Natural forest cover observations for 2000, 2005, 2010, 2015, and 2017 <span class="citation">(Vieilledent <em>et al.</em> <a href="#ref-Vieilledent2018data">2018</a><a href="#ref-Vieilledent2018data">a</a>)</span> are represented with black dots. Natural forest covers 8.4 Mha in 2017 (vertical dashed line). The model predicts that forest should cover 5.2 Mha in 2050 and 1.0 Mha in 2100.
+</p>
+</div>
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:forest-cover-change">Table 8.3: </span><strong>Population and forest cover change from 2000 to 2100</strong>. Population (Pop) is in thousand people. Forest areas are provided in thousand hectares (Kha). FSO and FS1 indicates the forest cover area following the “demographic” and “business-as-usual” scenario respectively. 
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Pop
+</th>
+<th style="text-align:right;">
+Fobs
+</th>
+<th style="text-align:right;">
+FS1
+</th>
+<th style="text-align:right;">
+FS2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+15,767
+</td>
+<td style="text-align:right;">
+9,879
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+18,337
+</td>
+<td style="text-align:right;">
+9,673
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+21,152
+</td>
+<td style="text-align:right;">
+9,320
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2015
+</td>
+<td style="text-align:right;">
+24,234
+</td>
+<td style="text-align:right;">
+8,770
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+25,571
+</td>
+<td style="text-align:right;">
+8,446
+</td>
+<td style="text-align:right;">
+8,446
+</td>
+<td style="text-align:right;">
+8,446
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2025
+</td>
+<td style="text-align:right;">
+31,500
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+7,685
+</td>
+<td style="text-align:right;">
+7,774
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2050
+</td>
+<td style="text-align:right;">
+53,803
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+5,165
+</td>
+<td style="text-align:right;">
+5,674
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2075
+</td>
+<td style="text-align:right;">
+77,946
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+2,787
+</td>
+<td style="text-align:right;">
+3,574
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2100
+</td>
+<td style="text-align:right;">
+98,002
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+1,018
+</td>
+<td style="text-align:right;">
+1,474
+</td>
+</tr>
+</tbody>
+</table>
 
 
 </div>
@@ -300,6 +493,15 @@ where <span class="math inline">\(\phi(\delta_i,\theta_j)\)</span> equals 1 if <
 </div>
 <div id="ref-Liu2011">
 <p>Liu, C., White, M. &amp; Newell, G. (2011) Measuring and comparing the accuracy of species distribution models with presence-absence data. <em>Ecography</em>, <strong>34</strong>, 232–243.</p>
+</div>
+<div id="ref-UN2017">
+<p>United Nations. (2017) <em>World Population Prospects: The 2017 Revision. Revision, Custom Data Acquired via Website. United Nations, Department of Economic and Social Affairs, Population Division.</em></p>
+</div>
+<div id="ref-Barnes1990">
+<p>Barnes, R.F.W. (1990) Deforestation trends in tropical africa. <em>African Journal of Ecology</em>, <strong>28</strong>, 161–173.</p>
+</div>
+<div id="ref-Vieilledent2018data">
+<p>Vieilledent, G., Grinand, C., Rakotomalala, F.A., Ranaivosoa, R., Rakotoarijaona, J.-R., Allnutt, T.F. &amp; Achard, F. (2018a) Output data from: Combining global tree cover loss data with historical national forest-cover maps to look at six decades of deforestation and forest fragmentation in madagascar.</p>
 </div>
 </div>
             </section>

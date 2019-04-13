@@ -2,7 +2,7 @@
 
 ## Appendix 1: Mathematical formulas for accuracy indices
 
-(ref:cap-confusion-matrix) **Confusion matrix used to compute accuracy indices.** A confusion matrix can be computed to compare model predictions with observations.\vspace{0.5cm} 
+(ref:cap-confusion-matrix) **Confusion matrix used to compute accuracy indices**. A confusion matrix can be computed to compare model predictions with observations.\vspace{0.5cm} 
 
 ```{r confusion-matrix, results="asis", echo=FALSE}
 df <- read.table("tables/confusion-matrix.txt", header=TRUE, sep=",")
@@ -13,10 +13,11 @@ knitr::kable(df, caption="(ref:cap-confusion-matrix)", booktabs=TRUE,
 			 escape=FALSE,
 			 col.names=col.names,
 			 align=vect.align, linesep="") %>%
-	kable_styling(latex_options=c("HOLD_position","striped"), full_width=FALSE, position="center")
+	kable_styling(latex_options=c("HOLD_position","striped"),
+				  full_width=FALSE, position="center")
 ```
 
-(ref:cap-accuracy-indices) **Formulas used to compute accuracy indices.**. Several accuracy indices can be computed from the confusion matrix to estimate and compare models' predictive skill. We followed the definitions of @Pontius2008 for the FOM and @Liu2011 for the other indices. Note that the AUC relies on the predicted probabilities for observations 0 (non-deforested) and 1 (deforested), not on the confusion matrix. \vspace{0.5cm} 
+(ref:cap-accuracy-indices) **Formulas used to compute accuracy indices**. Several accuracy indices can be computed from the confusion matrix to estimate and compare models' predictive skill. We followed the definitions of @Pontius2008 for the FOM and @Liu2011 for the other indices. Note that the AUC relies on the predicted probabilities for observations 0 (non-deforested) and 1 (deforested), not on the confusion matrix. \vspace{0.5cm} 
 
 ```{r accuracy-indices, results="asis", echo=FALSE}
 df <- read.table("tables/accuracy-indices.txt", header=TRUE, sep=",")
@@ -31,22 +32,40 @@ knitr::kable(df, caption="(ref:cap-accuracy-indices)", booktabs=TRUE,
 
 ## Appendix 2: Barnes model of deforestation intensity
 
-(ref:cap-demo) **Demographic projections for Madagascar**. Projections come from the 2017 revision of the United Nation World Population Prospects [@UN2017]. In 2000, population in Madagascar was estimated at 15.8 M. In 2017 (vertical dashed line), it is estimated at 25.6 M. Projections indicate that population should roughly double from 2017 to 2050 (reaching 53.8 M in 2050) and quadruple from 2017 to 2100 (reaching 98.0 M in 2100).
+(ref:cap-demo) **Demographic projections for Madagascar**. Projections come from the 2017 revision of the United Nations World Population Prospects [@UN2017]. In 2000, population in Madagascar was estimated at 15.8 M. In 2017 (vertical dashed line), it is estimated at 25.6 M. Projections indicate that population should roughly double from 2017 to 2050 (reaching 53.8 M in 2050) and quadruple from 2017 to 2100 (reaching 98.0 M in 2100).
 
 ```{r demo, out.width="\\textwidth", fig.cap="(ref:cap-demo)"}
 knitr::include_graphics("figures/demography.png")
 ```
 
-(ref:cap-defor) **Projections of the deforestation intensity (Kha/yr) for Madagascar**. We used the following model adapted from @Barnes1990 (see section Materials and Methods for more details): $D_{t,t+1} = \text{exp}(-5.942 + 0.219/2 + 0.607 \log(F_t) + 0.493 \log(P_t))$ to iteratively forecast deforestation $D_{t,t+1}$ and forest cover $F_t$ from 2017 to 2100 using the United Nations population projections $P_t$ (shown in Fig. \@ref(fig:demo)). Deforestation is estimated at 106 Kha/yr in 2017 (vertical dashed line). Observed mean annual deforestation on 2000-2017 [@Vieilledent2018data] is represented with a black dot. Deforestation should increase until 2040 (to reach about 112 Kha/yr) due to fast population growth and relatively high forest cover ($>=$ 6 Mha, see Fig. \@ref(fig:forest)). After 2040, deforestation should decrease due to slower population growth and lower residual forest cover ($<$ 6 Mha). Despite this decrease, deforestation should remain high for several decades ($>=$ 100 Kha/yr until 2060, and $>=$ 90 Kha/yr until 2075).
+(ref:cap-defor) **Deforestation intensity projections for Madagascar**. We used the following model adapted from @Barnes1990 (see section Materials and Methods for more details): $D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))$ to iteratively forecast deforestation $D_{t,t+1}$ and forest cover $F_t$ from 2017 to 2100 using the United Nations demographic projections $P_t$ (shown in Fig. \@ref(fig:demo)). Deforestation is estimated at 94 Kha/yr in 2017 (vertical dashed line). Observed mean annual deforestation (84 Kha/yr) on 2000-2017 [@Vieilledent2018data] is represented with a black dot. Mean deforestation should increase until 2040 (up to 102 Kha/yr) due to fast population growth and relatively high forest cover ($\geq$ 6 Mha, see Fig. \@ref(fig:forest)). After 2040, deforestation should decrease due to slower population growth and lower residual forest cover ($<$ 6 Mha). Despite this decrease, deforestation should remain high for several decades ($>$ 85 Kha/yr until 2075).
 
 ```{r defor, out.width="\\textwidth", fig.cap="(ref:cap-defor)"}
 knitr::include_graphics("figures/deforestation.png")
 ```
 
-(ref:cap-forest) **Projections of the natural forest cover (Mha) for Madagascar**. We used the following model adapted from @Barnes1990 (see section Materials and Methods for more details): $D_{t,t+1} = \text{exp}(-5.942 + 0.219/2 + 0.607 \log(F_t) + 0.493 \log(P_t))$ to iteratively forecast deforestation $D_{t,t+1}$ and forest cover $F_t$ from 2017 to 2100 using the United Nations population projections $P_t$ (shown in Fig. \@ref(fig:demo)). Forest cover observations for 2000, 2005, 2010, 2015, and 2017 [@Vieilledent2018data] are represented with black dots. The natural forest covers 8.4 Mha in 2017 (vertical dashed line). The model predicts that forest should cover 4.8 Mha in 2050 and less than 1 Mha (622,000 ha) in 2100.
+(ref:cap-forest) **Natural forest cover projections for Madagascar**. We used the following model adapted from @Barnes1990 (see section Materials and Methods for more details): $D_{t,t+1} = \text{exp}(-6.088 + 0.279/2 + 0.607 \log(F_t) + 0.493 \log(P_t))$ to iteratively forecast deforestation $D_{t,t+1}$ and forest cover $F_t$ from 2017 to 2100 using the United Nations demographic projections $P_t$ (shown in Fig. \@ref(fig:demo)). Natural forest cover observations for 2000, 2005, 2010, 2015, and 2017 [@Vieilledent2018data] are represented with black dots. Natural forest covers 8.4 Mha in 2017 (vertical dashed line). The model predicts that forest should cover 5.2 Mha in 2050 and 1.0 Mha in 2100.
 
 ```{r forest, out.width="\\textwidth", fig.cap="(ref:cap-forest)"}
 knitr::include_graphics("figures/forest_cover_change.png")
+```
+
+(ref:cap-forest-cover-change) **Population and forest cover change from 2000 to 2100**. Population (Pop) is in thousand people. Forest areas are provided in thousand hectares (Kha). FSO and FS1 indicates the forest cover area following the "demographic" and "business-as-usual" scenario respectively.\vspace{0.5cm} 
+
+```{r forest-cover-change, results="asis", echo=FALSE}
+df <- read.table("tables/df_fcc.csv", header=TRUE, sep=",")
+df2 <- df %>%
+	mutate(Year=as.character(Year))
+vect.align <- rep("r", 5)
+col.names <- c("Year","Pop","Fobs","FS1","FS2")
+options(knitr.kable.NA="")
+knitr::kable(df2, caption="(ref:cap-forest-cover-change)", booktabs=TRUE,
+			 digits=0, format.args=list(big.mark=","),
+			 col.names=col.names,
+			 escape=FALSE,
+			 align=vect.align, linesep="") %>%
+	kable_styling(latex_options=c("HOLD_position","striped"),
+				  full_width=FALSE, position="center")
 ```
 
 \newpage

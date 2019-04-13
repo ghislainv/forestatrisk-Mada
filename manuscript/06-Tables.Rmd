@@ -1,6 +1,6 @@
 # Tables
 
-(ref:cap-variables) **Set of explicative variables used to model the spatial probability of deforestation.** A total of height variables were tested. They described topography, forest accessibility, forest landscape, land tenure and deforestation history.\vspace{0.5cm} 
+(ref:cap-variables) **Set of explicative variables used to model the spatial probability of deforestation**. A total of height variables were tested. They described topography, forest accessibility, forest landscape, land tenure and deforestation history.\vspace{0.5cm} 
 
 ```{r variables, results="asis", echo=FALSE}
 df.variables <- read.table("tables/variables.txt", header=TRUE, sep=",")
