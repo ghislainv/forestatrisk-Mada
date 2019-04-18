@@ -72,6 +72,6 @@ We advocate the use of such models to obtain more accurate land-use change predi
 
 **Keywords:** deforestation, forecasts, forest cover change, forest refuge areas, Madagascar, random effects, spatial autocorrelation, spatial modelling, variability
 
-Target journals (selection): _Conservation Biology_ (IF: 5.89), _Biological Conservation_ (IF: 4.66), _Environmental Research Letters_ (IF: 4.54), _Landscape Ecology_ (IF: 3.83).
+Target journals (selection): _Conservation Biology_ (IF: 5.89), _Biological Conservation_ (IF: 4.66), _Environmental Research Letters_ (IF: 4.54), _Landscape Ecology_ (IF: 3.83), _PeerJ_ (IF: 2.2).
 
 \newpage

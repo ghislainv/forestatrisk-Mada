@@ -1,3 +1,12 @@
+#!/usr/bin/Rscript
+
+# ==============================================================================
+# author          :Ghislain Vieilledent
+# email           :ghislain.vieilledent@cirad.fr, ghislainv@gmail.com
+# web             :https://ghislainv.github.io
+# license         :GPLv3
+# ==============================================================================
+
 # Libraries
 require(dplyr)
 
@@ -38,9 +47,9 @@ accuracy_indices <- function(pred, obs) {
   # Accuracy indices
   N <- n11 + n10 + n00 + n01
   OA <- (n11 + n00) / N
-  FOM <- n00 / (n00 + n10 + n01)
-  Specificity <- n11 / (n11 + n01)
-  Sensitivity <- n00 / (n00 + n10)
+  FOM <- n11 / (n11 + n10 + n01)
+  Sensitivity <- n11 / (n11 + n01)
+  Specificity <- n00 / (n00 + n10)
   TSS <- Sensitivity + Specificity - 1
   Prob_1and1 <- ((n11 + n10) / N) * ((n11 + n01) / N)
   Prob_0and0 <- ((n00 + n01) / N) * ((n00 + n10) / N)
@@ -62,10 +71,10 @@ performance_index <- function(data_valid, theta_pred) {
   # Model predictions for validation dataset
   data_valid$theta_pred <- theta_pred
   # Number of observations
-  nforest <- sum(data_valid$fordefor2010==1)  # 1 for forest in fordefor2010
-  ndefor <- sum(data_valid$fordefor2010==0)
-  which_forest <- which(data_valid$fordefor2010==1)							
-  which_defor <- which(data_valid$fordefor2010==0)
+  nforest <- sum(data_valid$fordefor==1)  # 1 for forest in fordefor
+  ndefor <- sum(data_valid$fordefor==0)
+  which_forest <- which(data_valid$fordefor==1)							
+  which_defor <- which(data_valid$fordefor==0)
   # Performance at 1%, 10%, 25%, 50% change
   performance <- data.frame(perc=c(1,5,10,25,50),FOM=NA,OA=NA,EA=NA,
                             Spe=NA,Sen=NA,TSS=NA,K=NA,AUC=NA)
@@ -78,16 +87,16 @@ performance_index <- function(data_valid, theta_pred) {
     data_extract$pred <- 0
     # Probability threshold to transform probability into binary values
     proba_thresh <- quantile(data_extract$theta_pred, 1-perc/100)  # ! must be 1-proba_defor
-    data_extract$pred[data_extract$theta_pred >= proba_thresh] <- 1
+    data_extract$pred[data_extract$theta_pred > proba_thresh] <- 1
     # Computing accuracy indices
     pred <- data_extract$pred
-    obs <- 1-data_extract$fordefor2010
+    obs <- 1-data_extract$fordefor
     perf <- accuracy_indices(pred,obs) %>% 
       dplyr::select(FOM,OA,EA,Spe,Sen,TSS,K)
     performance[i,2:8] <- perf
     # AUC
-    pos.scores <- data_extract$theta_pred[data_extract$fordefor2010==0]
-    neg.scores <- data_extract$theta_pred[data_extract$fordefor2010==1]
+    pos.scores <- data_extract$theta_pred[data_extract$fordefor==0]
+    neg.scores <- data_extract$theta_pred[data_extract$fordefor==1]
     performance$AUC[i] <- round(computeAUC(pos.scores,neg.scores),2)
   }
   return(performance)

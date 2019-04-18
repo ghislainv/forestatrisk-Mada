@@ -54,32 +54,6 @@ if (!dir.exists("data")) {
 	dir.create("data/validation")
 }
 
-# Files
-files <- c("fordefor2010.tif", "dist_edge.tif", "dist_defor.tif",
-		   "altitude.tif", "slope.tif",
-		   "dist_road.tif", "dist_town.tif", "dist_river.tif",
-		   "sapm.tif", "roads.kml", "towns.kml", "rivers.kml", "sapm.kml")
-
-# Download model data
-for (i in files) {
-	if (!file.exists(glue("data/model/{i}"))) {
-		f <- glue("https://zenodo.org/record/259582/files/{i}")
-		curl_download(f, glue("data/model/{i}"), quiet=FALSE)
-	}
-}
-
-# Download validation data
-if (!file.exists("data/validation/for2017.tif")) {
-	f <- "http://bioscenemada.cirad.fr/FileTransfer/for2017.tif"
-	curl_download(f, "data/validation/for2017.tif", quiet=FALSE)
-}
-
-# Download mada outline
-if (!file.exists("data/mada/mada38s.shp")) {
-	f <- "http://bioscenemada.cirad.fr/FileTransfer/mada38s.zip"
-	curl_download(f, "data/mada/mada38s.zip", quiet=FALSE)
-	unzip("data/mada/mada38s.zip", exdir="data/mada")
-}
 
 ## ----plot_fcc------------------------------------------------------------
 # Make output directory
@@ -87,7 +61,7 @@ if (!dir.exists("output")) {
 	dir.create("output")
 }
 # Plot forest cover change 2000-2010
-fig <- far$plot$fcc(input_fcc_raster="data/model/fordefor2010.tif",
+fig <- far$plot$fcc(input_fcc_raster="data/models/2000-2010/fordefor.tif",
 					output_file="output/fcc2010.png",
 					col=c(255,0,0,255),  # rgba color for deforestation
 					figsize=c(5,5),
@@ -99,14 +73,14 @@ fig <- far$plot$fcc(input_fcc_raster="data/model/fordefor2010.tif",
 # ========================================================
 
 # Training data-set
-if (!file.exists("output/sample.txt")) {
+if (!file.exists("output/sample-2000-2010.txt")) {
   samp <- far$sample(nsamp=20000L, Seed=1234L, csize=10L,
-                     var_dir="data/model",
-                     input_forest_raster="fordefor2010.tif",
-                     output_file="output/sample.txt",
+                     var_dir="data/models/2000-2010",
+                     input_forest_raster="fordefor.tif",
+                     output_file="output/sample-2000-2010.txt",
                      blk_rows=1L)
 }
-samp <- read.table("output/sample.txt", header=TRUE, sep=",")
+samp <- read.table("output/sample-2000-2010.txt", header=TRUE, sep=",")
 set.seed(1234)
 train <- sample(1:40000, size=20000, replace=FALSE)
 data_train <- samp[train,] %>% dplyr::filter(complete.cases(.))
@@ -118,21 +92,21 @@ head(data_train)
 ## ----plot_sample---------------------------------------------------------
 # Plot sample points
 fig <- far$plot$obs(sample=data_train,
-             name_forest_var="fordefor2010",
-             input_fcc_raster="data/model/fordefor2010.tif",
+             name_forest_var="fordefor",
+             input_fcc_raster="data/models/2000-2010/fordefor.tif",
              output_file="output/obs.png",
              zoom=c(340000,412000,7420000,7500000),
-             figsize=c(5,5),#c(11.69,8.27),
+             figsize=c(5,5), #c(11.69,8.27),
              s=5,dpi=300)
 
 ## ----correlations--------------------------------------------------------
 # Descriptive statistics
 
 # Model formulas
-formula_1 <- paste0("fordefor2010 ~ dist_road + dist_town + dist_defor +",
+formula_1 <- paste0("fordefor ~ dist_road + dist_town + dist_defor +",
                     "dist_river + dist_edge + altitude + slope - 1")
 # Standardized variables (mean=0, std=1)
-formula_2 <- paste0("fordefor2010 ~ scale(dist_road) + scale(dist_town) +",
+formula_2 <- paste0("fordefor ~ scale(dist_road) + scale(dist_town) +",
                     "scale(dist_defor) + scale(dist_river) + scale(dist_edge) +",
                     "scale(altitude) + scale(slope) - 1")
 formulas <- c(formula_1, formula_2)
@@ -159,7 +133,7 @@ for (f in 1:length(formulas)) {
 
 ## ----spatial_cells-------------------------------------------------------
 # Spatial cells for spatial-autocorrelation
-neighborhood <- far$cellneigh_ctry(raster="data/model/fordefor2010.tif",
+neighborhood <- far$cellneigh_ctry(raster="data/models/2000-2010/fordefor.tif",
                                    vector="data/mada/mada38s.shp",
                                    csize=10L, rank=1L)
 nneigh <- neighborhood[[1]]
@@ -188,11 +162,9 @@ write.table(data_valid, "output/data_valid.txt", row.names=FALSE, sep=",")
 ## ----formula-------------------------------------------------------------
 # Formula
 data_train$trials <- 1  # Set number of trials to one
-formula <- paste0("I(1-fordefor2010) + trials ~ C(sapm) + scale(altitude) +
-                  scale(slope) +",
-                  "scale(dist_defor) + np.power(scale(dist_defor),2) + ",
-                  "scale(dist_edge) + ",
-                  "scale(dist_road) + scale(dist_town) + cell")
+formula <- paste0("I(1-fordefor) + trials ~ C(sapm) + scale(altitude) +
+                  scale(slope) + scale(dist_defor) + scale(dist_edge) +
+                  scale(dist_road) + scale(dist_town) + cell")
 
 ## ----mod_icar------------------------------------------------------------
 # Model
@@ -224,7 +196,7 @@ traces_fig <- mod_icar$plot(output_file="output/mcmc.pdf",
 require(coda)
 mcmc <- as.mcmc(mod_icar$mcmc)
 pdf(file="output/mcmc_R.pdf")
-plot(mcmc[,c(1:3,10,11)])
+plot(mcmc[,c(1:3,9,10)])
 dev.off()
 
 ## ----rho, fig.height=7, message=FALSE, warning=FALSE---------------------
@@ -233,9 +205,10 @@ rho <- rep(-9999,ncell)  # -9999 will be considered as nodata
 rho[cell_in+1] <- mod_icar$rho
 
 # Resample them
-fig <- far$interpolate_rho(rho=r_to_py(rho), input_raster="data/model/fordefor2010.tif",
-                 output_file="output/rho.tif",
-                 csize_orig=10L, csize_new=1L)
+fig <- far$interpolate_rho(rho=r_to_py(rho),
+						   input_raster="data/models/2000-2010/fordefor.tif",
+                 		   output_file="output/rho.tif",
+                 		   csize_orig=10L, csize_new=1L)
 
 # Plot random effects
 fig <- far$plot$rho("output/rho_orig.tif",output_file="output/rho_orig.png")
@@ -255,7 +228,7 @@ rho_plot(r.rho, mada, output_file="output/rho_ggplot.png",
 # ========================================================
 
 # Null model
-formula_null <- "I(1-fordefor2010) ~ 1"
+formula_null <- "I(1-fordefor) ~ 1"
 dmat_null <- patsy$dmatrices(formula_null, data=r_to_py(data_train), NA_action="drop",
 							 return_type="dataframe", eval_env=-1L)
 Y <- dmat_null[[1]]
@@ -264,11 +237,12 @@ mod_null <- sm$GLM(Y, X_null, family=sm$families$Binomial())$fit()
 print(mod_null$summary())
 
 # Simple glm with no spatial random effects
-formula_glm <- paste0("I(1-fordefor2010) ~ C(sapm) + scale(altitude) + ",
-					  "scale(slope) + scale(dist_defor) + I(scale(dist_defor)*scale(dist_defor)) + ",
+formula_glm <- paste0("I(1-fordefor) ~ C(sapm) + scale(altitude) + ",
+					  "scale(slope) + scale(dist_defor) + ",
 					  "scale(dist_edge) + scale(dist_road) + scale(dist_town)")
 mod_glm <- smf$glm(formula_glm, r_to_py(data_train),
 				   family=sm$families$Binomial(), eval_env=-1L)$fit()
+
 # Summary glm
 sink(file="output/summary_mod_binomial_glm.txt")
 print(mod_glm$summary())
@@ -290,9 +264,11 @@ write.table(mod_dev,file="output/deviance_model_comparison.txt",sep=",",row.name
 mod_dev
 
 ## ----perf_models---------------------------------------------------------
+source("R/perf.R")
 set.seed(1234)
 performance_null <- performance_index(data_valid,runif(nrow(data_valid)))
 performance_nochange <- performance_index(data_valid,rep(0,nrow(data_valid)))
+theta_pred <- rep(0,nrow(data_valid))
 performance_glm <- performance_index(data_valid,mod_glm$predict(data_valid))
 performance_icar <-performance_index(data_valid,mod_icar$predict(data_valid))
 # Save
@@ -317,12 +293,14 @@ write.table(df_mod_valid, file="output/df_mod_valid.txt", sep="\t", row.names=FA
 df_mod_valid
 
 # ========================================================
-# Spatial probability of deforestation
+# Spatial probability of deforestation in 2010
 # ========================================================
 
 ## Number of forest pixels in 2000 and 2010
-nfor2010_1 <- far$countpix("data/model/fordefor2010.tif", value=1L, blk_rows=128L)
-nfor2010_0 <- far$countpix("data/model/fordefor2010.tif", value=0L, blk_rows=128L)
+nfor2010_1 <- far$countpix("data/models/2000-2010/fordefor.tif",
+						   value=1L, blk_rows=128L)
+nfor2010_0 <- far$countpix("data/models/2000-2010/fordefor.tif",
+						   value=0L, blk_rows=128L)
 nfor2010_npix <- nfor2010_1$npix
 nfor2010_ha <- nfor2010_1$area
 nfor2000_npix <- nfor2010_1$npix + nfor2010_0$npix
@@ -331,38 +309,36 @@ nfor2000_ha <- nfor2010_1$area + nfor2010_0$area
 ## ----icar probabilities--------------------------------------------------
 if (!file.exists("output/prob_icar.tif")) {
   far$predict_raster_binomial_iCAR(
-    mod_icar, var_dir="data/model",
+    mod_icar, var_dir="data/models/2010-2017",
     input_cell_raster="output/rho.tif",
-    input_forest_raster="data/model/fordefor2010.tif",
+    input_forest_raster="data/forest/for2010.tif",
     output_file="output/prob_icar.tif",
     blk_rows=128L)
 }
 
 ## ----plot icar proba----------------------------------------------------
 if (!file.exists("output/prob_icar.png")) {
-  fig <- far$plot$prob("output/prob_icar.tif",
-                       output_file="output/prob_icar.png",
-                       figsize=c(4,4))
+	fig <- far$plot$prob(
+		"output/prob_icar.tif",
+		output_file="output/prob_icar.png",
+		figsize=c(4,4))
 }
 
 ## ----glm probabilities------------------------------------------------
-mod <- c("glm","rf","rfxy")
-model <- list(mod_glm, mod_rf, mod_rfxy)
-for (i in 1:1) { # length(mod)) {
-	cat(glue("Probability in 2010: {mod[i]}"),"\n")
-	if (!file.exists(glue("output/prob_{mod[i]}.tif"))) {
-		fig_prob <- far$predict_raster(model[[i]], var_dir="data/model",
-									   input_forest_raster="data/model/fordefor2010.tif",
-									   output_file=glue("output/prob_{mod[i]}.tif"),
-									   blk_rows=128L, transform=TRUE)
-	}
+if (!file.exists("output/prob_glm.tif")) {
+	fig_prob <- far$predict_raster(
+		mod_glm, var_dir="data/models/2010-2017",
+		input_forest_raster="data/forest/for2010.tif",
+		output_file="output/prob_glm.tif",
+		blk_rows=128L, transform=TRUE)
 }
 
 ## ----plot glm proba----------------------------------------------------
 if (!file.exists("output/prob_glm.png")) {
-	fig <- far$plot$prob("output/prob_glm.tif",
-						 output_file="output/prob_glm.png",
-						 figsize=c(4,4))
+	fig <- far$plot$prob(
+		"output/prob_glm.tif",
+		output_file="output/prob_glm.png",
+		figsize=c(4,4))
 }
 
 # ========================================================
@@ -371,10 +347,10 @@ if (!file.exists("output/prob_glm.png")) {
 
 ## ----defor_area_2010_2017, results="hide"--------------------------------
 # Number of deforested pixels
-count_d <- far$countpix("data/validation/proj2017_obs.tif", value=0L, blk_rows=128L)
+count_d <- far$countpix("data/forest/2010-2017/fordefor.tif", value=0L, blk_rows=128L)
 
 ## ----count_d-------------------------------------------------------------
-deforested_area_2017 <- count_d$area
+defor_area_2010_2017 <- count_d$area
 
 ## ----proj2017, results="hide"--------------------------------------------
 mod <- c("icar", "glm")
@@ -383,13 +359,15 @@ for (i in 1:length(mod)) {
 	cat(glue("Projections in 2017: {mod[i]}"),"\n")
 	if (!file.exists(glue("output/proj2017_{mod[i]}.tif"))) {
 		deforest <- far$deforest(input_raster=glue("output/prob_{mod[i]}.tif"),
-								 hectares=874211, # deforested_area_2017,
+								 hectares=874211, # defor_area_2010_2017,
 								 output_file=glue("output/proj2017_{mod[i]}.tif"),
 								 blk_rows=128L)
 		error_ha[i] <- deforest[[3]]
 	}
 }
-save(error_ha, file="output/error.rda")
+sink("output/error_ha.txt")
+print(error_ha)
+sink()
 
 # ================================
 # Accuracy of projections in 2017
@@ -497,9 +475,9 @@ p <- ggplot(acc_mod, aes(x=res_km, y=value, color=mod)) +
 	geom_line() + xlim(0,15) + facet_wrap(.~index, ncol=4, scales="free")
 ggsave("output/models_accuracy.png", p)
 
-# ========================================================
-# Projections in 2050
-# ========================================================
+# =========================================================
+# Model projection difference on the long term (until 2050)
+# =========================================================
 
 ## ----proj2050, results="hide"--------------------------------------------
 mod <- c("icar", "glm")
@@ -507,14 +485,14 @@ for (i in 1:length(mod)) {
 	cat(glue("Projections in 2050: {mod[i]}"),"\n")
 	if (!file.exists(glue("output/proj2050_{mod[i]}.tif"))) {
 		deforest <- far$deforest(input_raster=glue("output/prob_{mod[i]}.tif"),
-								 hectares=4000000,
+								 hectares=3400000,
 								 output_file=glue("output/proj2050_{mod[i]}.tif"),
 								 blk_rows=128L)
 	}
 }
 
 ## ----compute_diff2050----------------------------------------------------
-comp <- c("icar_glm", "icar_rf", "icar_rfxy", "rfxy_rf")
+comp <- c("icar_glm")
 index_diff2050_30m <- NULL
 for (i in 1:1) { #length(comp)) {
   cat(glue("Differences in 2050: {comp[i]}"),"\n")
@@ -556,6 +534,10 @@ p <- diff_plot(input_df=r_diff,
                input_vector=mada,
                output_file="output/diff2050_icar_glm_ggplot.png",
                rect=rect_df)
+
+# =======================================================================
+# Using iCAR model to forecast deforestation on 2017--2050 and 2017--2100
+# =======================================================================
 
 # ========================================================
 # End
