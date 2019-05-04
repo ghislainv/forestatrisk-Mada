@@ -80,22 +80,22 @@ ogr2ogr -overwrite -skipfailures -f 'ESRI Shapefile' -progress \
 ogr2ogr -overwrite -s_srs EPSG:4326 -t_srs $proj -f 'ESRI Shapefile' \
         -lco ENCODING=UTF-8 towns_UTM.shp towns.shp
 gdal_rasterize -te $extent -tap -burn 1 \
-        -co "COMPRESS=LZW" -co "PREDICTOR=2" -co "BIGTIFF=YES" \
-        -ot Byte -a_nodata 255 \
+        -co "COMPRESS=LZW" -co "PREDICTOR=2" -ot Byte \
+        -a_nodata 255 \
         -tr 150 150 -l towns_UTM towns_UTM.shp towns.tif
 # roads
 ogr2ogr -overwrite -s_srs EPSG:4326 -t_srs $proj -f 'ESRI Shapefile' \
         -lco ENCODING=UTF-8 roads_UTM.shp roads.shp
 gdal_rasterize -te $extent -tap -burn 1 \
-        -co "COMPRESS=LZW" -co "PREDICTOR=2" -co "BIGTIFF=YES" \
-        -ot Byte -a_nodata 255 \
+        -co "COMPRESS=LZW" -co "PREDICTOR=2" -ot Byte \
+        -a_nodata 255 \
         -tr 150 150 -l roads_UTM roads_UTM.shp roads.tif
 # rivers
 ogr2ogr -overwrite -s_srs EPSG:4326 -t_srs $proj -f 'ESRI Shapefile' \
         -lco ENCODING=UTF-8 rivers_UTM.shp rivers.shp
 gdal_rasterize -te $extent -tap -burn 1 \
-        -co "COMPRESS=LZW" -co "PREDICTOR=2" -co "BIGTIFF=YES" \
-        -ot Byte -a_nodata 255 \
+        -co "COMPRESS=LZW" -co "PREDICTOR=2" -ot Byte \
+        -a_nodata 255 \
         -tr 150 150 -l rivers_UTM rivers_UTM.shp rivers.tif
 
 # Convert to kml
@@ -133,7 +133,8 @@ gdal_translate -a_nodata 4294967295 \
 echo "SRTM data from CGIAR-CSI\n"
 
 # Download SRTM data from CSI CGIAR
-url="http://srtm.csi.cgiar.org/wp-content/uploads/files/srtm_5x5/TIFF/srtm_["$tiles_long"]_["$tiles_lat"].zip"
+#else "http://srtm.csi.cgiar.org/SRT-ZIP/SRTM_V41/SRTM_Data_GeoTiff"
+url="http://gis-lab.info/data/srtm-tif/srtm_["$tiles_long"]_["$tiles_lat"].zip"
 curl -L $url -o 'SRTM_V41_#1_#2.zip'
 
 # Unzip
