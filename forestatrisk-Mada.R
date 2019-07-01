@@ -164,8 +164,12 @@ write.table(data_valid, "output/data_valid.txt", row.names=FALSE, sep=",")
 data_train$trials <- 1  # Set number of trials to one
 formula <- paste0("I(1-fordefor) + trials ~ C(sapm) + scale(altitude) +
                   scale(slope) + scale(dist_edge) +
-                  scale(dist_defor) + np.power(scale(dist_defor),2) +
+                  scale(dist_defor) +
                   scale(dist_road) + scale(dist_town) + cell")
+# formula <- paste0("I(1-fordefor) + trials ~ C(sapm) + scale(altitude) +
+#                   scale(slope) + scale(dist_edge) +
+#                   scale(dist_defor) + np.power(scale(dist_defor),2) +
+#                   scale(dist_road) + scale(dist_town) + cell")
 
 ## ----mod_icar------------------------------------------------------------
 # Model
@@ -240,7 +244,6 @@ print(mod_null$summary())
 # Simple glm with no spatial random effects
 formula_glm <- paste0("I(1-fordefor) ~ C(sapm) + scale(altitude) + ",
 					  "scale(slope) + scale(dist_defor) + ",
-					  "I(scale(dist_defor)*scale(dist_defor)) + ",
 					  "scale(dist_edge) + scale(dist_road) + scale(dist_town)")
 mod_glm <- smf$glm(formula_glm, r_to_py(data_train),
 				   family=sm$families$Binomial(), eval_env=-1L)$fit()
@@ -538,8 +541,18 @@ p <- diff_plot(input_df=r_diff,
                rect=rect_df)
 
 # =======================================================================
-# Using iCAR model to forecast deforestation on 2017--2050 and 2017--2100
+# Using iCAR model to forecast deforestation on 2010--2055 and 2010--2085
 # =======================================================================
+
+deforest2055 <- far$deforest(input_raster=glue("output/prob_icar.tif"),
+						 hectares=4500000,
+						 output_file=glue("output/proj2055_icar.tif"),
+						 blk_rows=128L)
+
+deforest2085 <- far$deforest(input_raster=glue("output/prob_icar.tif"),
+							 hectares=7500000,
+							 output_file=glue("output/proj2085_icar.tif"),
+							 blk_rows=128L)
 
 # ========================================================
 # End
